@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareerMind | Seu caminho profissional</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+</head>
+
+<body>
+  <header class="header">
+    <a href="#inicio" class="logo">Career<span>Mind</span></a>
+
+    <nav class="nav" id="nav">
+      <a href="#inicio">Início</a>
+      <a href="#perfil">Meu Perfil</a>
+      <a href="#descoberta">Descobrir Carreiras</a>
+      <a href="#diagnostico">Diagnóstico</a>
+    </nav>
+
+    <button class="btn btn-outline header-login" onclick="alert('Área de login em desenvolvimento.')">
+      Entrar
+    </button>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero section" id="inicio">
+      <div class="hero-content">
+        <span class="eyebrow">CARREERMIND • SEU FUTURO COMEÇA AQUI</span>
+        <h1>Descubra seu <span>caminho profissional.</span></h1>
+        <p>
+          O CareerMind ajuda você a entender seus interesses, desenvolver suas
+          competências e encontrar caminhos profissionais compatíveis com o seu perfil.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#perfil" class="btn btn-primary">Criar meu perfil</a>
+          <a href="#diagnostico" class="btn btn-light">Começar diagnóstico →</a>
+        </div>
+
+        <div class="hero-info">
+          <div><strong>01</strong><span>Conheça seu perfil</span></div>
+          <div><strong>02</strong><span>Descubra possibilidades</span></div>
+          <div><strong>03</strong><span>Planeje seu futuro</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-label="Ilustração abstrata de desenvolvimento profissional">
+        <div class="visual-glow"></div>
+        <div class="dashboard-card">
+          <div class="mini-header">
+            <span>Meu desenvolvimento</span>
+            <span class="status-dot">●</span>
+          </div>
+          <div class="chart">
+            <div class="bar bar-1"></div>
+            <div class="bar bar-2"></div>
+            <div class="bar bar-3"></div>
+            <div class="bar bar-4"></div>
+            <div class="bar bar-5"></div>
+            <div class="chart-line"></div>
+          </div>
+          <div class="progress-label">
+            <span>Preparação profissional</span>
+            <strong>76%</strong>
+          </div>
+          <div class="progress"><span style="width:76%"></span></div>
+        </div>
+
+        <div class="floating-card career-card">
+          <span class="floating-icon">✦</span>
+          <div>
+            <small>Área compatível</small>
+            <strong>Tecnologia</strong>
+          </div>
+          <b>87%</b>
+        </div>
+
+        <div class="floating-card skill-card">
+          <span class="check">✓</span>
+          <div>
+            <small>Competência</small>
+            <strong>JavaScript</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PERFIL -->
+    <section class="section profile-section" id="perfil">
+      <div class="section-heading">
+        <span class="eyebrow">PRIMEIRO PASSO</span>
+        <h2>Crie seu perfil</h2>
+        <p>Conte um pouco sobre você para começarmos a entender seu momento profissional.</p>
+      </div>
+
+      <div class="profile-card">
+        <div class="steps">
+          <div class="step active" data-step="1"><span>1</span><p>Informações</p></div>
+          <div class="step-line"></div>
+          <div class="step" data-step="2"><span>2</span><p>Perfil</p></div>
+          <div class="step-line"></div>
+          <div class="step" data-step="3"><span>3</span><p>Objetivo</p></div>
+        </div>
+
+        <div class="progress-top">
+          <div class="progress"><span id="formProgress" style="width:33.33%"></span></div>
+          <small id="stepText">Etapa 1 de 3</small>
+        </div>
+
+        <form id="profileForm">
+          <!-- ETAPA 1 -->
+          <div class="form-step active" data-form-step="1">
+            <h3>Informações acadêmicas</h3>
+            <p class="form-description">Vamos começar com algumas informações básicas.</p>
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="nome">Nome completo <span>*</span></label>
+                <input type="text" id="nome" name="nome" placeholder="Digite seu nome">
+                <small class="error"></small>
+              </div>
+
+              <div class="field">
+                <label for="email">E-mail <span>*</span></label>
+                <input type="email" id="email" name="email" placeholder="seuemail@email.com">
+                <small class="error"></small>
+              </div>
+
+              <div class="field">
+                <label for="curso">Curso <span>*</span></label>
+                <input type="text" id="curso" name="curso" placeholder="Ex.: Engenharia de Computação">
+                <small class="error"></small>
+              </div>
+
+              <div class="field">
+                <label for="periodo">Período <span>*</span></label>
+                <select id="periodo" name="periodo">
+                  <option value="">Selecione</option>
+                  <option>1º período</option>
+                  <option>2º período</option>
+                  <option>3º período</option>
+                  <option>4º período</option>
+                  <option>5º período</option>
+                  <option>6º período</option>
+                  <option>7º período</option>
+                  <option>8º período</option>
+                  <option>9º período</option>
+                  <option>10º período</option>
+                </select>
+                <small class="error"></small>
+              </div>
+            </div>
+          </div>
+
+          <!-- ETAPA 2 -->
+          <div class="form-step" data-form-step="2">
+            <h3>Seu perfil</h3>
+            <p class="form-description">Agora vamos conhecer suas competências e experiências.</p>
+
+            <div class="form-grid">
+              <div class="field full">
+                <label for="habilidades">Habilidades <span>*</span></label>
+                <input type="text" id="habilidades" placeholder="Ex.: comunicação, programação, liderança">
+                <small class="hint">Separe as habilidades por vírgula.</small>
+                <small class="error"></small>
+              </div>
+
+              <div class="field">
+                <label for="materias">Matérias que já cursou</label>
+                <textarea id="materias" rows="4" placeholder="Ex.: Cálculo, Programação, Física..."></textarea>
+              </div>
+
+              <div class="field">
+                <label for="certificados">Certificados</label>
+                <textarea id="certificados" rows="4" placeholder="Ex.: Excel, inglês, cursos online..."></textarea>
+              </div>
+
+              <div class="field">
+                <label for="projetos">Projetos e programas</label>
+                <textarea id="projetos" rows="4" placeholder="Conte sobre projetos dos quais participou..."></textarea>
+              </div>
+
+              <div class="field">
+                <label for="experiencias">Experiências</label>
+                <textarea id="experiencias" rows="4" placeholder="Experiências profissionais ou acadêmicas..."></textarea>
+              </div>
+
+              <div class="field full">
+                <label for="interesses">Interesses profissionais <span>*</span></label>
+                <input type="text" id="interesses" placeholder="Ex.: tecnologia, negócios, design">
+                <small class="error"></small>
+              </div>
+            </div>
+          </div>
+
+          <!-- ETAPA 3 -->
+          <div class="form-step" data-form-step="3">
+            <h3>Defina seu objetivo</h3>
+            <p class="form-description">Um objetivo claro nos ajuda a montar uma jornada mais personalizada.</p>
+
+            <div class="form-grid">
+              <div class="field full">
+                <label for="objetivo">Objetivo profissional <span>*</span></label>
+                <input type="text" id="objetivo" placeholder="Ex.: conseguir um estágio em desenvolvimento">
+                <small class="error"></small>
+              </div>
+
+              <div class="field">
+                <label for="horas">Horas disponíveis por semana <span>*</span></label>
+                <select id="horas">
+                  <option value="">Selecione</option>
+                  <option>Até 3 horas</option>
+                  <option>4 a 6 horas</option>
+                  <option>7 a 10 horas</option>
+                  <option>11 a 15 horas</option>
+                  <option>Mais de 15 horas</option>
+                </select>
+                <small class="error"></small>
+              </div>
+
+              <div class="field">
+                <label for="prazo">Prazo para alcançar o objetivo <span>*</span></label>
+                <select id="prazo">
+                  <option value="">Selecione</option>
+                  <option>3 meses</option>
+                  <option>6 meses</option>
+                  <option>1 ano</option>
+                  <option>2 anos</option>
+                  <option>Mais de 2 anos</option>
+                </select>
+                <small class="error"></small>
+              </div>
+            </div>
+          </div>
+
+        <div class="form-actions">
+  <button type="button" class="btn btn-light" id="backBtn">← Voltar</button>
+
+  <button type="button" class="btn btn-test" id="testDataBtn">
+    ✦ Usar dados fictícios
+  </button>
+
+  <button type="button" class="btn btn-primary" id="nextBtn">
+    Continuar →
+  </button>
+
+  <button type="submit" class="btn btn-primary hidden" id="saveBtn">
+    Salvar perfil ✓
+  </button>
+</div>  
+        </form>
+
+        <div class="success-message hidden" id="profileSuccess">
+          <div class="success-icon">✓</div>
+          <h3>Perfil criado com sucesso!</h3>
+          <p>Agora vamos descobrir quais caminhos profissionais combinam com você.</p>
+          <a href="#diagnostico" class="btn btn-primary">Começar diagnóstico →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESCOBERTA -->
+    <section class="section discovery-section" id="descoberta">
+      <div class="section-heading">
+        <span class="eyebrow">DESCUBRA SEU PERFIL</span>
+        <h2>Conheça seu potencial.</h2>
+        <p>
+          Responda algumas perguntas sobre seus interesses, preferências e conhecimentos.
+          O CareerMind utiliza essas informações para identificar áreas profissionais que podem combinar com você.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="feature-icon">◎</div>
+          <h3>Seus interesses</h3>
+          <p>Descubra áreas profissionais que combinam com aquilo que desperta sua curiosidade e motivação.</p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon">◇</div>
+          <h3>Suas habilidades</h3>
+          <p>Identifique competências que você já possui e entenda quais podem ser desenvolvidas.</p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon">↗</div>
+          <h3>Seu potencial</h3>
+          <p>Explore possibilidades de carreira e visualize caminhos que podem fazer sentido para o seu perfil.</p>
+        </article>
+      </div>
+
+      <div class="center-button">
+        <a href="#diagnostico" class="btn btn-primary">Começar diagnóstico →</a>
+      </div>
+    </section>
+
+    <!-- DIAGNÓSTICO -->
+    <section class="section diagnosis-section" id="diagnostico">
+      <div class="section-heading">
+        <span class="eyebrow">DIAGNÓSTICO INICIAL</span>
+        <h2>Qual caminho combina com você?</h2>
+        <p>Responda três perguntas rápidas para conhecer uma primeira indicação do seu perfil.</p>
+      </div>
+
+      <div class="diagnosis-card">
+        <div class="question-progress">
+          <span id="questionCounter">Pergunta 1 de 3</span>
+          <div class="progress"><span id="questionProgress" style="width:33.33%"></span></div>
+        </div>
+
+        <div class="question active" data-question="1">
+          <h3>Qual atividade você mais gostaria de realizar?</h3>
+          <div class="options">
+            <label><input type="radio" name="q1" value="tech"> <span>Criar sites e aplicativos</span></label>
+            <label><input type="radio" name="q1" value="data"> <span>Analisar dados</span></label>
+            <label><input type="radio" name="q1" value="business"> <span>Criar estratégias para empresas</span></label>
+            <label><input type="radio" name="q1" value="people"> <span>Trabalhar com pessoas</span></label>
+            <label><input type="radio" name="q1" value="product"> <span>Criar projetos e produtos</span></label>
+          </div>
+        </div>
+
+        <div class="question" data-question="2">
+          <h3>Como você prefere aprender?</h3>
+          <div class="options">
+            <label><input type="radio" name="q2" value="tech"> <span>Praticando</span></label>
+            <label><input type="radio" name="q2" value="data"> <span>Assistindo vídeos</span></label>
+            <label><input type="radio" name="q2" value="business"> <span>Lendo conteúdos</span></label>
+            <label><input type="radio" name="q2" value="product"> <span>Resolvendo problemas</span></label>
+          </div>
+        </div>
+
+        <div class="question" data-question="3">
+          <h3>Qual área mais desperta seu interesse?</h3>
+          <div class="options">
+            <label><input type="radio" name="q3" value="tech"> <span>Tecnologia</span></label>
+            <label><input type="radio" name="q3" value="business"> <span>Negócios</span></label>
+            <label><input type="radio" name="q3" value="product"> <span>Design</span></label>
+            <label><input type="radio" name="q3" value="tech"> <span>Engenharia</span></label>
+            <label><input type="radio" name="q3" value="business"> <span>Marketing</span></label>
+          </div>
+        </div>
+
+        <div class="diagnosis-actions">
+          <button type="button" class="btn btn-light" id="diagnosisBack">← Anterior</button>
+          <button type="button" class="btn btn-primary" id="diagnosisNext">Próxima →</button>
+          <button type="button" class="btn btn-primary hidden" id="finishDiagnosis">Finalizar diagnóstico</button>
+        </div>
+      </div>
+
+      <!-- RESULTADO -->
+      <div class="result-card hidden" id="resultCard">
+        <div class="result-badge">✦ RESULTADO DO DIAGNÓSTICO</div>
+        <h3>Seu perfil apresenta maior compatibilidade com <span>Tecnologia.</span></h3>
+        <p>Essas recomendações são baseadas nas informações fornecidas durante seu diagnóstico.</p>
+
+        <div class="career-results">
+          <div class="career-result">
+            <div class="career-info">
+              <span>Desenvolvimento Front-end</span>
+              <strong>87%</strong>
+            </div>
+            <div class="progress"><span style="width:87%"></span></div>
+          </div>
+
+          <div class="career-result">
+            <div class="career-info">
+              <span>Dados</span>
+              <strong>78%</strong>
+            </div>
+            <div class="progress"><span style="width:78%"></span></div>
+          </div>
+
+          <div class="career-result">
+            <div class="career-info">
+              <span>Produto</span>
+              <strong>70%</strong>
+            </div>
+            <div class="progress"><span style="width:70%"></span></div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" id="restartDiagnosis">Refazer diagnóstico</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <a href="#inicio" class="logo">Career<span>Mind</span></a>
+      <p>Transformando estudantes em profissionais preparados.</p>
+    </div>
+    <p>© 2026 CareerMind</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
