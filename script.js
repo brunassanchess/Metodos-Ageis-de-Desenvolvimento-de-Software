@@ -839,4 +839,562 @@ document.addEventListener("DOMContentLoaded", function () {
 
     showQuestion(currentQuestion);
 
+    // ==========================================
+// EPIC 4 + EPIC 5
+// ANÁLISE DE COMPETÊNCIAS
+// ==========================================
+
+
+const careerSelect =
+    document.getElementById("careerSelect");
+
+const skillsList =
+    document.getElementById("skillsList");
+
+const gapList =
+    document.getElementById("gapList");
+
+const skillsCompleted =
+    document.getElementById("skillsCompleted");
+
+const skillsMissing =
+    document.getElementById("skillsMissing");
+
+const skillsMatch =
+    document.getElementById("skillsMatch");
+
+
+// ==========================================
+// DADOS FICTÍCIOS DO MERCADO
+// ==========================================
+
+const careerData = {
+
+    backend: [
+
+        {
+            nome: "Java",
+            demanda: "Alta",
+            nivelMercado: 3,
+            nivelEstudante: 1
+        },
+
+        {
+            nome: "SQL",
+            demanda: "Alta",
+            nivelMercado: 2,
+            nivelEstudante: 2
+        },
+
+        {
+            nome: "APIs",
+            demanda: "Alta",
+            nivelMercado: 2,
+            nivelEstudante: 1
+        },
+
+        {
+            nome: "Docker",
+            demanda: "Média",
+            nivelMercado: 1,
+            nivelEstudante: 0
+        },
+
+        {
+            nome: "Testes",
+            demanda: "Média",
+            nivelMercado: 2,
+            nivelEstudante: 0
+        }
+
+    ],
+
+
+    frontend: [
+
+        {
+            nome: "HTML",
+            demanda: "Alta",
+            nivelMercado: 2,
+            nivelEstudante: 2
+        },
+
+        {
+            nome: "CSS",
+            demanda: "Alta",
+            nivelMercado: 2,
+            nivelEstudante: 2
+        },
+
+        {
+            nome: "JavaScript",
+            demanda: "Alta",
+            nivelMercado: 3,
+            nivelEstudante: 1
+        },
+
+        {
+            nome: "React",
+            demanda: "Alta",
+            nivelMercado: 2,
+            nivelEstudante: 0
+        },
+
+        {
+            nome: "Git",
+            demanda: "Média",
+            nivelMercado: 1,
+            nivelEstudante: 1
+        }
+
+    ],
+
+
+    data: [
+
+        {
+            nome: "SQL",
+            demanda: "Alta",
+            nivelMercado: 3,
+            nivelEstudante: 2
+        },
+
+        {
+            nome: "Excel",
+            demanda: "Alta",
+            nivelMercado: 2,
+            nivelEstudante: 2
+        },
+
+        {
+            nome: "Python",
+            demanda: "Alta",
+            nivelMercado: 2,
+            nivelEstudante: 1
+        },
+
+        {
+            nome: "Power BI",
+            demanda: "Média",
+            nivelMercado: 2,
+            nivelEstudante: 0
+        },
+
+        {
+            nome: "Estatística",
+            demanda: "Média",
+            nivelMercado: 2,
+            nivelEstudante: 1
+        }
+
+    ]
+
+};
+
+
+// ==========================================
+// CONVERTER NÍVEL PARA TEXTO
+// ==========================================
+
+function getLevelText(level) {
+
+    if (level === 0) {
+        return "Não informado";
+    }
+
+    if (level === 1) {
+        return "Básico";
+    }
+
+    if (level === 2) {
+        return "Intermediário";
+    }
+
+    if (level === 3) {
+        return "Avançado";
+    }
+
+    return "Não informado";
+
+}
+
+
+// ==========================================
+// ANALISAR COMPETÊNCIAS
+// ==========================================
+
+function renderSkills() {
+
+    if (!careerSelect || !skillsList) {
+        return;
+    }
+
+
+    const career =
+        careerSelect.value;
+
+
+    const skills =
+        careerData[career];
+
+
+    skillsList.innerHTML = "";
+
+
+    let completed = 0;
+
+    let missing = 0;
+
+    let totalScore = 0;
+
+    let totalPossible = 0;
+
+
+    skills.forEach(function (skill) {
+
+
+        const studentLevel =
+            skill.nivelEstudante;
+
+        const marketLevel =
+            skill.nivelMercado;
+
+
+        // Calcula compatibilidade
+
+        const score =
+            Math.min(
+                studentLevel / marketLevel,
+                1
+            );
+
+
+        totalScore += score;
+
+        totalPossible += 1;
+
+
+        // Status
+
+        let status = "";
+
+        let statusClass = "";
+
+
+        if (studentLevel >= marketLevel) {
+
+            status = "Competência atendida";
+
+            statusClass = "complete";
+
+            completed++;
+
+        }
+
+        else if (studentLevel > 0) {
+
+            status = "Desenvolvimento necessário";
+
+            statusClass = "partial";
+
+            missing++;
+
+        }
+
+        else {
+
+            status = "Precisa desenvolver";
+
+            statusClass = "missing";
+
+            missing++;
+
+        }
+
+
+        // Porcentagem da barra
+
+        const percentage =
+            Math.round(
+                score * 100
+            );
+
+
+        // Cria elemento
+
+        const row =
+            document.createElement("div");
+
+        row.className =
+            "skill-row";
+
+
+        row.innerHTML = `
+
+            <div class="skill-top">
+
+                <div class="skill-name">
+                    ${skill.nome}
+                </div>
+
+
+                <div class="skill-column">
+
+                    <small>
+                        Demanda
+                    </small>
+
+                    <strong class="${
+                        skill.demanda === "Alta"
+                        ? "demand-high"
+                        : "demand-medium"
+                    }">
+
+                        ${skill.demanda}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="skill-column">
+
+                    <small>
+                        Mercado
+                    </small>
+
+                    <strong>
+                        ${getLevelText(marketLevel)}
+                    </strong>
+
+                </div>
+
+
+                <div class="status ${statusClass}">
+                    ${status}
+                </div>
+
+            </div>
+
+
+            <div class="skill-level">
+
+                <div class="level-track">
+
+                    <div
+                        class="level-fill"
+                        style="width:${percentage}%"
+                    ></div>
+
+                </div>
+
+
+                <div class="level-text">
+
+                    <span>
+                        Seu nível:
+                        ${getLevelText(studentLevel)}
+                    </span>
+
+                    <span>
+                        ${percentage}% compatível
+                    </span>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        skillsList.appendChild(row);
+
+    });
+
+
+    // ==========================================
+    // ATUALIZA RESUMO
+    // ==========================================
+
+    const compatibility =
+        Math.round(
+            (totalScore / totalPossible) * 100
+        );
+
+
+    if (skillsCompleted) {
+
+        skillsCompleted.textContent =
+            completed;
+
+    }
+
+
+    if (skillsMissing) {
+
+        skillsMissing.textContent =
+            missing;
+
+    }
+
+
+    if (skillsMatch) {
+
+        skillsMatch.textContent =
+            compatibility + "%";
+
+    }
+
+
+    // ==========================================
+    // MOSTRAR LACUNAS
+    // ==========================================
+
+    if (gapList) {
+
+        gapList.innerHTML = "";
+
+
+        const gaps =
+            skills.filter(function (skill) {
+
+                return (
+                    skill.nivelEstudante <
+                    skill.nivelMercado
+                );
+
+            });
+
+
+        if (gaps.length === 0) {
+
+            gapList.innerHTML = `
+
+                <div class="gap-item">
+
+                    <span class="gap-dot"></span>
+
+                    <div>
+
+                        <strong>
+                            Excelente!
+                        </strong>
+
+                        <small>
+                            Você atende às principais
+                            competências desta carreira.
+                        </small>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+        else {
+
+            gaps.forEach(function (skill) {
+
+                const difference =
+                    skill.nivelMercado -
+                    skill.nivelEstudante;
+
+
+                const item =
+                    document.createElement("div");
+
+                item.className =
+                    "gap-item";
+
+
+                item.innerHTML = `
+
+                    <span class="gap-dot"></span>
+
+                    <div>
+
+                        <strong>
+                            ${skill.nome}
+                        </strong>
+
+                        <small>
+
+                            Seu nível:
+                            ${getLevelText(
+                                skill.nivelEstudante
+                            )}
+
+                            →
+
+                            Mercado:
+                            ${getLevelText(
+                                skill.nivelMercado
+                            )}
+
+                        </small>
+
+                    </div>
+
+                `;
+
+
+                gapList.appendChild(item);
+
+            });
+
+        }
+
+    }
+
+}
+
+
+// ==========================================
+// ALTERAR CARREIRA
+// ==========================================
+
+if (careerSelect) {
+
+    careerSelect.addEventListener(
+        "change",
+        renderSkills
+    );
+
+}
+
+
+// ==========================================
+// BOTÃO DE VALIDAÇÃO
+// ==========================================
+
+const validateSkillBtn =
+    document.getElementById(
+        "validateSkillBtn"
+    );
+
+
+if (validateSkillBtn) {
+
+    validateSkillBtn.addEventListener(
+        "click",
+        function () {
+
+            alert(
+                "Área de desafios práticos em desenvolvimento. Em uma próxima versão, o estudante poderá realizar exercícios para validar suas competências."
+            );
+
+        }
+    );
+
+}
+
+
+// ==========================================
+// CARREGAR ANÁLISE INICIAL
+// ==========================================
+
+renderSkills();
+
 });

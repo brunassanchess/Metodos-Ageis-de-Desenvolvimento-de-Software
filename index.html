@@ -17,6 +17,7 @@
       <a href="#perfil">Meu Perfil</a>
       <a href="#descoberta">Descobrir Carreiras</a>
       <a href="#diagnostico">Diagnóstico</a>
+      <a href="#competencias">Competências</a>
     </nav>
 
     <button class="btn btn-outline header-login" onclick="alert('Área de login em desenvolvimento.')">
@@ -388,6 +389,240 @@
         <button class="btn btn-primary" id="restartDiagnosis">Refazer diagnóstico</button>
       </div>
     </section>
+    <!-- ==========================================
+     ANÁLISE DE COMPETÊNCIAS
+     EPIC 4 + EPIC 5
+     ========================================== -->
+
+<section class="section skills-section" id="competencias">
+
+    <div class="section-heading">
+
+        <span class="eyebrow">
+            ANÁLISE DE COMPETÊNCIAS
+        </span>
+
+        <h2>
+            Mercado × Seu perfil
+        </h2>
+
+        <p>
+            Veja quais competências são importantes para a carreira
+            escolhida e compare com o seu nível atual.
+        </p>
+
+    </div>
+
+
+    <div class="skills-container">
+
+        <!-- CARREIRA -->
+
+        <div class="career-selector">
+
+            <div>
+                <span class="small-label">
+                    OBJETIVO PROFISSIONAL
+                </span>
+
+                <h3>
+                    Desenvolvedor Backend
+                </h3>
+
+                <p>
+                    Competências baseadas em demandas do mercado
+                    e referências de especialistas.
+                </p>
+            </div>
+
+            <select id="careerSelect">
+
+                <option value="backend">
+                    Desenvolvedor Backend
+                </option>
+
+                <option value="frontend">
+                    Desenvolvedor Front-end
+                </option>
+
+                <option value="data">
+                    Analista de Dados
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- RESUMO -->
+
+        <div class="skills-summary">
+
+            <div class="summary-card">
+
+                <span class="summary-icon">✓</span>
+
+                <div>
+
+                    <strong id="skillsCompleted">
+                        0
+                    </strong>
+
+                    <small>
+                        Competências atendidas
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <span class="summary-icon warning">!</span>
+
+                <div>
+
+                    <strong id="skillsMissing">
+                        0
+                    </strong>
+
+                    <small>
+                        Competências a desenvolver
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <span class="summary-icon blue">
+                    %
+                </span>
+
+                <div>
+
+                    <strong id="skillsMatch">
+                        0%
+                    </strong>
+
+                    <small>
+                        Compatibilidade
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TABELA DE COMPETÊNCIAS -->
+
+        <div class="skills-card">
+
+            <div class="skills-card-header">
+
+                <div>
+
+                    <h3>
+                        Competências da carreira
+                    </h3>
+
+                    <p>
+                        O que o mercado espera × o que você possui
+                    </p>
+
+                </div>
+
+                <span class="market-badge">
+                    Mercado
+                </span>
+
+            </div>
+
+
+            <div
+                class="skills-list"
+                id="skillsList"
+            >
+                <!-- O JavaScript irá criar as competências aqui -->
+            </div>
+
+        </div>
+
+
+        <!-- LACUNAS -->
+
+        <div class="gap-card">
+
+            <div class="gap-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        SEU PRÓXIMO PASSO
+                    </span>
+
+                    <h3>
+                        Suas principais lacunas
+                    </h3>
+
+                </div>
+
+                <span class="gap-icon">
+                    ↗
+                </span>
+
+            </div>
+
+
+            <div id="gapList">
+
+                <!-- preenchido pelo JavaScript -->
+
+            </div>
+
+        </div>
+
+
+        <!-- VALIDAÇÃO -->
+
+        <div class="validation-card">
+
+            <div>
+
+                <span class="eyebrow">
+                    VALIDAÇÃO
+                </span>
+
+                <h3>
+                    Demonstre suas habilidades
+                </h3>
+
+                <p>
+                    O CareerMind não depende apenas do que você
+                    informa no perfil. Realize desafios para validar
+                    suas competências.
+                </p>
+
+            </div>
+
+
+            <button
+                class="btn btn-primary"
+                id="validateSkillBtn"
+            >
+                Fazer desafio →
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
   </main>
 
   <footer class="footer">
@@ -401,3 +636,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+

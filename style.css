@@ -3,15 +3,21 @@
    ============================== */
 
 :root {
-  --blue: #1769e0;
-  --blue-dark: #0b3f91;
-  --blue-light: #eaf3ff;
-  --blue-soft: #f5f9ff;
-  --text: #17243a;
-  --muted: #66758a;
-  --border: #dce7f5;
-  --white: #ffffff;
-  --shadow: 0 18px 50px rgba(35, 92, 160, 0.10);
+  --blue: #40E0D0;          /* Turquoise */
+  --blue-dark: #168F86;     /* Turquoise escurecido */
+  --blue-light: #E8FFFC;    /* Turquoise bem claro */
+  --blue-soft: #F5FFFA;     /* Fundo suave */
+  
+  --green: #98FB98;         /* PaleGreen */
+  --green-dark: #4FAF68;    /* PaleGreen escurecido */
+  --green-light: #EDFFED;   /* PaleGreen bem claro */
+
+  --text: #183331;          /* Texto escuro */
+  --muted: #667A78;         /* Texto secundário */
+  --border: #D5EFEB;        /* Bordas */
+  --white: #FFFFFF;
+
+  --shadow: 0 18px 50px rgba(64, 224, 208, 0.12);
   --radius: 20px;
 }
 
@@ -112,13 +118,24 @@ button {
 }
 
 .btn-primary {
-  background: var(--blue);
-  color: white;
-  box-shadow: 0 10px 25px rgba(23, 105, 224, 0.22);
+  background: linear-gradient(
+    135deg,
+    #40E0D0,
+    #63DFA8
+  );
+
+  color: #123A36;
+
+  box-shadow:
+    0 10px 25px rgba(64, 224, 208, 0.25);
 }
 
 .btn-primary:hover {
-  background: var(--blue-dark);
+  background: linear-gradient(
+    135deg,
+    #32CFC0,
+    #7BE68D
+  );
 }
 
 .btn-light {
@@ -162,7 +179,9 @@ button {
   grid-template-columns: 1.05fr 0.95fr;
   align-items: center;
   gap: 60px;
-  background: linear-gradient(135deg, #ffffff 45%, #f1f7ff 100%);
+  background: linear-gradient (135deg,
+  #FFFFFF 45%,
+  #F0FFFC 100%);
   overflow: hidden;
 }
 
@@ -320,7 +339,11 @@ button {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #1769e0, #5caeff);
+  background: linear-gradient(
+    90deg,
+    #40E0D0,
+    #98FB98
+  );
 }
 
 .floating-card {
@@ -394,7 +417,7 @@ button {
 /* PROFILE */
 
 .profile-section {
-  background: var(--blue-soft);
+  background: #F5FFFA;
 }
 
 .profile-card,
@@ -656,7 +679,8 @@ button {
 /* DIAGNOSIS */
 
 .diagnosis-section {
-  background: linear-gradient(180deg, #f5f9ff, #edf5ff);
+  background: linear-gradient(180deg, #F5FFFC,
+    #EDFFF5);
 }
 
 .question-progress {
@@ -946,4 +970,489 @@ button {
   .diagnosis-actions .btn {
     flex: 1;
   }
+}
+/* ==========================================
+   ANÁLISE DE COMPETÊNCIAS
+   EPIC 4 + EPIC 5
+   ========================================== */
+
+.skills-section {
+    background: #ffffff;
+}
+
+.skills-container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+
+/* CARREIRA */
+
+.career-selector {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+
+    padding: 28px;
+
+    background: linear-gradient(
+        135deg,
+        #f5f9ff,
+        #edf5ff
+    );
+
+    border: 1px solid #dce8f7;
+    border-radius: 20px;
+
+    margin-bottom: 20px;
+}
+
+.small-label {
+    color: #1769e0;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.career-selector h3 {
+    margin-top: 5px;
+    font-size: 24px;
+}
+
+.career-selector p {
+    color: #66758a;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.career-selector select {
+    min-width: 240px;
+
+    padding: 13px;
+
+    border: 1px solid #cbdced;
+    border-radius: 11px;
+
+    background: white;
+    color: #17243a;
+
+    outline: none;
+}
+
+
+/* RESUMO */
+
+.skills-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+.summary-card {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    padding: 20px;
+
+    background: white;
+
+    border: 1px solid #dce7f5;
+    border-radius: 16px;
+
+    box-shadow: 0 10px 30px rgba(35, 92, 160, 0.06);
+}
+
+.summary-icon {
+    width: 40px;
+    height: 40px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 11px;
+
+    background: #EDFFED;
+    color: #4FAF68;
+
+    font-weight: 800;
+}
+
+.summary-icon.warning {
+    background: #fff4e5;
+    color: #df8a21;
+}
+
+.summary-icon.blue {
+    background: #E8FFFC;
+    color: #168F86;
+}
+
+.summary-card strong {
+    display: block;
+
+    font-size: 21px;
+}
+
+.summary-card small {
+    display: block;
+
+    color: #738095;
+
+    font-size: 11px;
+}
+
+
+/* LISTA DE COMPETÊNCIAS */
+
+.skills-card {
+    background: white;
+
+    border: 1px solid #dce7f5;
+    border-radius: 20px;
+
+    box-shadow: 0 15px 40px rgba(35, 92, 160, 0.07);
+
+    overflow: hidden;
+}
+
+.skills-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 25px;
+
+    border-bottom: 1px solid #edf2f7;
+}
+
+.skills-card-header h3 {
+    font-size: 19px;
+}
+
+.skills-card-header p {
+    color: #758196;
+    font-size: 12px;
+}
+
+.market-badge {
+    padding: 7px 11px;
+
+    border-radius: 20px;
+
+    background: #eaf3ff;
+    color: #1769e0;
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+
+/* COMPETÊNCIA */
+
+.skill-row {
+    padding: 21px 25px;
+
+    border-bottom: 1px solid #edf2f7;
+}
+
+.skill-row:last-child {
+    border-bottom: none;
+}
+
+.skill-top {
+    display: grid;
+
+    grid-template-columns:
+        1.3fr
+        0.8fr
+        0.8fr
+        auto;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+.skill-name {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.skill-column {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.skill-column small {
+    color: #8a96a7;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+}
+
+.skill-column strong {
+    font-size: 12px;
+}
+
+.demand-high {
+    color: #1769e0;
+}
+
+.demand-medium {
+    color: #5584b7;
+}
+
+.status {
+    padding: 7px 11px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    text-align: center;
+}
+
+.status.complete {
+    background: #e8f7ef;
+    color: #29915b;
+}
+
+.status.missing {
+    background: #fff4e5;
+    color: #d7841c;
+}
+
+.status.partial {
+    background: #eef4fc;
+    color: #55779e;
+}
+
+
+/* BARRA DE NÍVEL */
+
+.skill-level {
+    margin-top: 15px;
+}
+
+.level-track {
+    height: 7px;
+
+    background: #e8eef6;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.level-fill {
+    height: 100%;
+
+    border-radius: inherit;
+
+    background: linear-gradient(
+        90deg,
+        #1769e0,
+        #68b0ff
+    );
+}
+
+.level-text {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 6px;
+
+    color: #8793a4;
+
+    font-size: 10px;
+}
+
+
+/* LACUNAS */
+
+.gap-card {
+    margin-top: 20px;
+
+    padding: 28px;
+
+    background: #f5f9ff;
+
+    border: 1px solid #dce8f7;
+    border-radius: 20px;
+}
+
+.gap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.gap-header h3 {
+    margin-top: 5px;
+
+    font-size: 20px;
+}
+
+.gap-icon {
+    width: 40px;
+    height: 40px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 11px;
+
+    background: #e3efff;
+
+    color: #1769e0;
+
+    font-weight: 800;
+}
+
+.gap-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 14px;
+
+    margin-bottom: 10px;
+
+    background: white;
+
+    border: 1px solid #e0eaf5;
+
+    border-radius: 12px;
+}
+
+.gap-item:last-child {
+    margin-bottom: 0;
+}
+
+.gap-dot {
+    width: 9px;
+    height: 9px;
+
+    border-radius: 50%;
+
+    background: #f0a43c;
+}
+
+.gap-item strong {
+    font-size: 13px;
+}
+
+.gap-item small {
+    display: block;
+
+    color: #7d899a;
+
+    font-size: 10px;
+}
+
+
+/* VALIDAÇÃO */
+
+.validation-card {
+    margin-top: 20px;
+
+    padding: 28px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+
+    background: #082e69;
+
+    border-radius: 20px;
+
+    color: white;
+}
+
+.validation-card h3 {
+    margin: 6px 0;
+
+    font-size: 21px;
+}
+
+.validation-card p {
+    color: #cbdcf3;
+
+    font-size: 12px;
+
+    max-width: 650px;
+}
+
+.validation-card .eyebrow {
+    color: #83bdff;
+}
+
+
+/* RESPONSIVO */
+
+@media (max-width: 800px) {
+
+    .career-selector {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .career-selector select {
+        width: 100%;
+    }
+
+    .skills-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .skill-top {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .status {
+        justify-self: start;
+    }
+
+    .validation-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .validation-card .btn {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .skills-card-header {
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .skill-top {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .skill-column {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .skill-column small {
+        margin-right: 10px;
+    }
+
 }
