@@ -1456,3 +1456,616 @@ button {
     }
 
 }
+/* ==========================================
+   CAREERMIND
+   PALETA FINAL - TURQUOISE + PALEGREEN
+   ========================================== */
+
+
+/* ==========================================
+   CORES GERAIS
+   ========================================== */
+
+:root {
+    --blue: #40E0D0;
+    --blue-dark: #168F86;
+    --blue-light: #E8FFFC;
+    --blue-soft: #F5FFFA;
+
+    --green: #98FB98;
+    --green-dark: #4FAF68;
+    --green-light: #EDFFED;
+
+    --text: #183331;
+    --muted: #667A78;
+    --border: #D5EFEB;
+    --white: #FFFFFF;
+
+    --shadow: 0 18px 50px rgba(64, 224, 208, 0.12);
+}
+
+
+/* ==========================================
+   HEADER
+   ========================================== */
+
+.header {
+    border-bottom: 1px solid #D5EFEB;
+}
+
+.nav a:hover {
+    color: #168F86;
+}
+
+
+/* ==========================================
+   BOTÕES
+   ========================================== */
+
+.btn-primary {
+    background: linear-gradient(
+        135deg,
+        #40E0D0,
+        #98FB98
+    );
+
+    color: #123A36;
+
+    box-shadow:
+        0 10px 25px rgba(64, 224, 208, 0.25);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(
+        135deg,
+        #32CFC0,
+        #7BE68D
+    );
+
+    box-shadow:
+        0 12px 28px rgba(64, 224, 208, 0.30);
+}
+
+
+.btn-light {
+    background: #E8FFFC;
+    color: #168F86;
+}
+
+.btn-light:hover {
+    background: #D9FFF8;
+}
+
+
+.btn-outline {
+    border: 1px solid #BFE9E3;
+    background: white;
+    color: #168F86;
+}
+
+.btn-outline:hover {
+    background: #F5FFFA;
+    border-color: #40E0D0;
+}
+
+
+.btn-test {
+    background: #EDFFED;
+    color: #4FAF68;
+    border: 1px dashed #98FB98;
+}
+
+.btn-test:hover {
+    background: #E2FFE2;
+    border-color: #40E0D0;
+}
+
+
+.menu-toggle {
+    color: #168F86;
+}
+
+
+/* ==========================================
+   HERO
+   ========================================== */
+
+.hero {
+    background: linear-gradient(
+        135deg,
+        #FFFFFF 45%,
+        #F0FFFC 100%
+    );
+}
+
+.eyebrow {
+    color: #168F86;
+}
+
+.hero h1 span {
+    color: #40E0D0;
+}
+
+.hero-info strong {
+    color: #168F86;
+}
+
+
+/* ==========================================
+   ILUSTRAÇÃO DO HERO
+   ========================================== */
+
+.visual-glow {
+    background: #DFFFFA;
+}
+
+.dashboard-card {
+    border: 1px solid #D5EFEB;
+
+    box-shadow:
+        0 25px 70px rgba(64, 224, 208, 0.16);
+}
+
+
+.status-dot {
+    color: #40E0D0;
+}
+
+
+.chart {
+    border-bottom: 1px solid #D5EFEB;
+}
+
+
+.bar {
+    background: linear-gradient(
+        to top,
+        #40E0D0,
+        #98FB98
+    );
+}
+
+
+.chart-line {
+    background: #40CFC0;
+}
+
+
+.progress {
+    background: #E7F5F2;
+}
+
+
+.progress span {
+    background: linear-gradient(
+        90deg,
+        #40E0D0,
+        #98FB98
+    );
+}
+
+
+.floating-card {
+    border: 1px solid #D5EFEB;
+
+    box-shadow:
+        0 15px 40px rgba(64, 224, 208, 0.14);
+}
+
+
+.career-card b {
+    color: #168F86;
+}
+
+
+.floating-icon,
+.check {
+    background: #E8FFFC;
+    color: #168F86;
+}
+
+
+/* ==========================================
+   PERFIL
+   ========================================== */
+
+.profile-section {
+    background: #F5FFFA;
+}
+
+
+.step.active {
+    color: #168F86;
+}
+
+
+.step.active span {
+    color: #123A36;
+    background: #40E0D0;
+}
+
+
+.step-line {
+    background: #D5EFEB;
+}
+
+
+.field label span {
+    color: #168F86;
+}
+
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+    border-color: #40E0D0;
+
+    box-shadow:
+        0 0 0 3px rgba(64, 224, 208, 0.12);
+}
+
+
+/* ==========================================
+   MENSAGEM DE SUCESSO
+   ========================================== */
+
+.success-icon {
+    background: #EDFFED;
+    color: #4FAF68;
+}
+
+
+/* ==========================================
+   DESCOBERTA
+   ========================================== */
+
+.feature-card:hover {
+    border-color: #98FB98;
+
+    box-shadow:
+        0 18px 50px rgba(64, 224, 208, 0.12);
+}
+
+
+.feature-icon {
+    color: #168F86;
+    background: #E8FFFC;
+}
+
+
+/* ==========================================
+   DIAGNÓSTICO
+   ========================================== */
+
+.diagnosis-section {
+    background: linear-gradient(
+        180deg,
+        #F5FFFC,
+        #EDFFF5
+    );
+}
+
+
+.question-progress span {
+    color: #168F86;
+}
+
+
+.options label {
+    border: 1px solid #D5EFEB;
+}
+
+
+.options label:hover {
+    border-color: #40E0D0;
+    background: #F5FFFA;
+}
+
+
+.options input {
+    accent-color: #40E0D0;
+}
+
+
+.options label:has(input:checked) {
+    border-color: #40E0D0;
+    background: #E8FFFC;
+    color: #168F86;
+}
+
+
+.result-badge {
+    background: #E8FFFC;
+    color: #168F86;
+}
+
+
+.result-card h3 span {
+    color: #40CFC0;
+}
+
+
+/* ==========================================
+   EPIC 4 + EPIC 5
+   COMPETÊNCIAS
+   ========================================== */
+
+
+/* Seção inteira */
+
+.skills-section {
+    background: #F5FFFA;
+}
+
+
+/* Seletor da carreira */
+
+.career-selector {
+    background: linear-gradient(
+        135deg,
+        #F0FFFC,
+        #EDFFED
+    );
+
+    border: 1px solid #D5EFEB;
+}
+
+
+.small-label {
+    color: #168F86;
+}
+
+
+.career-selector p {
+    color: #667A78;
+}
+
+
+.career-selector select {
+    border: 1px solid #BFE9E3;
+    color: #183331;
+}
+
+
+/* ==========================================
+   RESUMO
+   ========================================== */
+
+.summary-card {
+    border: 1px solid #D5EFEB;
+
+    box-shadow:
+        0 10px 30px rgba(64, 224, 208, 0.08);
+}
+
+
+.summary-icon {
+    background: #EDFFED;
+    color: #4FAF68;
+}
+
+
+.summary-icon.warning {
+    background: #E8FFFC;
+    color: #168F86;
+}
+
+
+.summary-icon.blue {
+    background: #E8FFFC;
+    color: #168F86;
+}
+
+
+/* ==========================================
+   CARD DE COMPETÊNCIAS
+   ========================================== */
+
+.skills-card {
+    border: 1px solid #D5EFEB;
+
+    box-shadow:
+        0 15px 40px rgba(64, 224, 208, 0.08);
+}
+
+
+.skills-card-header {
+    border-bottom: 1px solid #E3F5F2;
+}
+
+
+.market-badge {
+    background: #E8FFFC;
+    color: #168F86;
+}
+
+
+/* ==========================================
+   LINHAS DAS COMPETÊNCIAS
+   ========================================== */
+
+.skill-row {
+    border-bottom: 1px solid #E3F5F2;
+}
+
+
+.skill-column small {
+    color: #7A9290;
+}
+
+
+.demand-high {
+    color: #168F86;
+}
+
+
+.demand-medium {
+    color: #4FAF68;
+}
+
+
+/* ==========================================
+   STATUS
+   ========================================== */
+
+.status.complete {
+    background: #EDFFED;
+    color: #4FAF68;
+}
+
+
+.status.missing {
+    background: #E8FFFC;
+    color: #168F86;
+}
+
+
+.status.partial {
+    background: #EAFBF7;
+    color: #238F82;
+}
+
+
+/* ==========================================
+   BARRA DE NÍVEL
+   ========================================== */
+
+.level-track {
+    background: #E5F4F1;
+}
+
+
+.level-fill {
+    background: linear-gradient(
+        90deg,
+        #40E0D0,
+        #98FB98
+    );
+}
+
+
+.level-text {
+    color: #708885;
+}
+
+
+/* ==========================================
+   LACUNAS
+   ========================================== */
+
+.gap-card {
+    background: linear-gradient(
+        135deg,
+        #F0FFFC,
+        #F5FFFA
+    );
+
+    border: 1px solid #D5EFEB;
+}
+
+
+.gap-icon {
+    background: #E8FFFC;
+    color: #168F86;
+}
+
+
+.gap-item {
+    border: 1px solid #D5EFEB;
+}
+
+
+.gap-dot {
+    background: #40E0D0;
+}
+
+
+/* ==========================================
+   VALIDAÇÃO
+   ========================================== */
+
+.validation-card {
+    background: linear-gradient(
+        135deg,
+        #168F86,
+        #40BFAF
+    );
+
+    color: white;
+}
+
+
+.validation-card p {
+    color: #E8FFFC;
+}
+
+
+.validation-card .eyebrow {
+    color: #98FB98;
+}
+
+
+/* Botão dentro da validação */
+
+.validation-card .btn-primary {
+    background: linear-gradient(
+        135deg,
+        #40E0D0,
+        #98FB98
+    );
+
+    color: #123A36;
+}
+
+
+.validation-card .btn-primary:hover {
+    background: linear-gradient(
+        135deg,
+        #32CFC0,
+        #7BE68D
+    );
+}
+
+
+/* ==========================================
+   FOOTER
+   ========================================== */
+
+.footer {
+    background: linear-gradient(
+        135deg,
+        #168F86,
+        #40BFAF
+    );
+
+    color: white;
+}
+
+
+.footer .logo {
+    color: white;
+}
+
+
+.footer .logo span {
+    color: #98FB98;
+}
+
+
+.footer p {
+    color: #E8FFFC;
+}
+
+
+/* ==========================================
+   MENU MOBILE
+   ========================================== */
+
+@media (max-width: 700px) {
+
+    .nav {
+        background: white;
+        border-bottom: 1px solid #D5EFEB;
+    }
+
+}
