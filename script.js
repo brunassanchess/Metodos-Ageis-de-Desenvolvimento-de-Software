@@ -1369,11 +1369,95 @@ if (careerSelect) {
 // BOTÃO DE VALIDAÇÃO
 // ==========================================
 
+// ==========================================
+// EPIC 6 - VALIDAÇÃO DE HABILIDADES
+// ==========================================
+
 const validateSkillBtn =
     document.getElementById(
         "validateSkillBtn"
     );
 
+const challengeCard =
+    document.getElementById(
+        "challengeCard"
+    );
+
+const challengeQuestions =
+    document.querySelectorAll(
+        ".challenge-question"
+    );
+
+const challengeNext =
+    document.getElementById(
+        "challengeNext"
+    );
+
+const challengeBack =
+    document.getElementById(
+        "challengeBack"
+    );
+
+const finishChallenge =
+    document.getElementById(
+        "finishChallenge"
+    );
+
+const challengeCounter =
+    document.getElementById(
+        "challengeCounter"
+    );
+
+const challengeProgress =
+    document.getElementById(
+        "challengeProgress"
+    );
+
+const validationResult =
+    document.getElementById(
+        "validationResult"
+    );
+
+const validationScore =
+    document.getElementById(
+        "validationScore"
+    );
+
+const validatedLevel =
+    document.getElementById(
+        "validatedLevel"
+    );
+
+const validationResultText =
+    document.getElementById(
+        "validationResultText"
+    );
+
+const goRoadmapBtn =
+    document.getElementById(
+        "goRoadmapBtn"
+    );
+
+
+let currentChallenge = 1;
+
+
+// Respostas corretas
+
+const correctAnswers = {
+
+    challenge1: "c",
+
+    challenge2: "b",
+
+    challenge3: "c"
+
+};
+
+
+// ==========================================
+// ABRIR DESAFIO
+// ==========================================
 
 if (validateSkillBtn) {
 
@@ -1381,8 +1465,383 @@ if (validateSkillBtn) {
         "click",
         function () {
 
-            alert(
-                "Área de desafios práticos em desenvolvimento. Em uma próxima versão, o estudante poderá realizar exercícios para validar suas competências."
+            const validationSection =
+                document.getElementById(
+                    "validacao"
+                );
+
+            if (validationSection) {
+
+                validationSection.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            }
+
+        }
+    );
+
+}
+
+
+// ==========================================
+// MOSTRAR QUESTÃO
+// ==========================================
+
+function showChallengeQuestion(
+    questionNumber
+) {
+
+    challengeQuestions.forEach(
+        function (question) {
+
+            const number =
+                Number(
+                    question.getAttribute(
+                        "data-challenge"
+                    )
+                );
+
+            if (
+                number === questionNumber
+            ) {
+
+                question.classList.add(
+                    "active"
+                );
+
+            } else {
+
+                question.classList.remove(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+
+    if (challengeCounter) {
+
+        challengeCounter.textContent =
+            "Questão " +
+            questionNumber +
+            " de 3";
+
+    }
+
+
+    if (challengeProgress) {
+
+        const percentage =
+            (questionNumber / 3) * 100;
+
+        challengeProgress.style.width =
+            percentage + "%";
+
+    }
+
+
+    if (challengeBack) {
+
+        if (questionNumber === 1) {
+
+            challengeBack.style.visibility =
+                "hidden";
+
+        } else {
+
+            challengeBack.style.visibility =
+                "visible";
+
+        }
+
+    }
+
+
+    if (challengeNext) {
+
+        if (questionNumber === 3) {
+
+            challengeNext.classList.add(
+                "hidden"
+            );
+
+        } else {
+
+            challengeNext.classList.remove(
+                "hidden"
+            );
+
+        }
+
+    }
+
+
+    if (finishChallenge) {
+
+        if (questionNumber === 3) {
+
+            finishChallenge.classList.remove(
+                "hidden"
+            );
+
+        } else {
+
+            finishChallenge.classList.add(
+                "hidden"
+            );
+
+        }
+
+    }
+
+}
+
+
+// ==========================================
+// VERIFICAR RESPOSTA
+// ==========================================
+
+function getChallengeAnswer(
+    questionNumber
+) {
+
+    return document.querySelector(
+        'input[name="challenge' +
+        questionNumber +
+        '"]:checked'
+    );
+
+}
+
+
+// ==========================================
+// PRÓXIMA QUESTÃO
+// ==========================================
+
+if (challengeNext) {
+
+    challengeNext.addEventListener(
+        "click",
+        function () {
+
+            const answer =
+                getChallengeAnswer(
+                    currentChallenge
+                );
+
+
+            if (!answer) {
+
+                alert(
+                    "Escolha uma alternativa para continuar."
+                );
+
+                return;
+
+            }
+
+
+            if (
+                currentChallenge < 3
+            ) {
+
+                currentChallenge++;
+
+                showChallengeQuestion(
+                    currentChallenge
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+// ==========================================
+// QUESTÃO ANTERIOR
+// ==========================================
+
+if (challengeBack) {
+
+    challengeBack.addEventListener(
+        "click",
+        function () {
+
+            if (
+                currentChallenge > 1
+            ) {
+
+                currentChallenge--;
+
+                showChallengeQuestion(
+                    currentChallenge
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+// ==========================================
+// FINALIZAR DESAFIO
+// ==========================================
+
+if (finishChallenge) {
+
+    finishChallenge.addEventListener(
+        "click",
+        function () {
+
+            const lastAnswer =
+                getChallengeAnswer(
+                    currentChallenge
+                );
+
+
+            if (!lastAnswer) {
+
+                alert(
+                    "Escolha uma alternativa para finalizar."
+                );
+
+                return;
+
+            }
+
+
+            let score = 0;
+
+
+            // Calcula resultado
+
+            for (
+                let i = 1;
+                i <= 3;
+                i++
+            ) {
+
+                const answer =
+                    getChallengeAnswer(i);
+
+
+                if (
+                    answer &&
+                    answer.value ===
+                    correctAnswers[
+                        "challenge" + i
+                    ]
+                ) {
+
+                    score++;
+
+                }
+
+            }
+
+
+            const percentage =
+                Math.round(
+                    (score / 3) * 100
+                );
+
+
+            let level =
+                "Não validado";
+
+
+            if (
+                percentage >= 80
+            ) {
+
+                level = "Intermediário";
+
+            }
+
+            else if (
+                percentage >= 50
+            ) {
+
+                level = "Básico";
+
+            }
+
+
+            // Atualiza resultado
+
+            if (validationScore) {
+
+                validationScore.textContent =
+                    percentage + "%";
+
+            }
+
+
+            if (validatedLevel) {
+
+                validatedLevel.textContent =
+                    level;
+
+            }
+
+
+            if (validationResultText) {
+
+                if (percentage >= 80) {
+
+                    validationResultText.textContent =
+                        "Seu desempenho demonstra que você possui uma boa base em JavaScript. Essa competência foi validada pelo CareerMind.";
+
+                }
+
+                else if (percentage >= 50) {
+
+                    validationResultText.textContent =
+                        "Você demonstrou conhecimentos básicos em JavaScript. Continue praticando para alcançar o próximo nível.";
+
+                }
+
+                else {
+
+                    validationResultText.textContent =
+                        "Seu resultado indica que essa competência ainda precisa ser desenvolvida.";
+
+                }
+
+            }
+
+
+            if (validationResult) {
+
+                validationResult.classList.remove(
+                    "hidden"
+                );
+
+                validationResult.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+            }
+
+
+            // Guarda resultado
+
+            localStorage.setItem(
+                "careerMindJavaScriptLevel",
+                level
+            );
+
+            localStorage.setItem(
+                "careerMindJavaScriptScore",
+                percentage
             );
 
         }
@@ -1390,6 +1849,511 @@ if (validateSkillBtn) {
 
 }
 
+
+// ==========================================
+// EPIC 7 - ROADMAP
+// ==========================================
+
+const roadmapList =
+    document.getElementById(
+        "roadmapList"
+    );
+
+const roadmapObjective =
+    document.getElementById(
+        "roadmapObjective"
+    );
+
+const roadmapDeadline =
+    document.getElementById(
+        "roadmapDeadline"
+    );
+
+const roadmapHours =
+    document.getElementById(
+        "roadmapHours"
+    );
+
+
+// ==========================================
+// DADOS DOS ROADMAPS
+// ==========================================
+
+const roadmaps = {
+
+    frontend: [
+
+        {
+            mes: "MÊS 1",
+            titulo: "Fundamentos de JavaScript",
+            descricao:
+                "Construir uma base sólida de lógica e JavaScript.",
+            tags: [
+                "JavaScript",
+                "Lógica",
+                "DOM"
+            ]
+        },
+
+        {
+            mes: "MÊS 2",
+            titulo: "JavaScript + APIs",
+            descricao:
+                "Aprender comunicação com APIs e manipulação de dados.",
+            tags: [
+                "JavaScript",
+                "APIs",
+                "JSON"
+            ]
+        },
+
+        {
+            mes: "MÊS 3",
+            titulo: "React",
+            descricao:
+                "Conhecer componentes e construção de interfaces.",
+            tags: [
+                "React",
+                "Componentes",
+                "Estado"
+            ]
+        },
+
+        {
+            mes: "MÊS 4",
+            titulo: "Projeto prático",
+            descricao:
+                "Desenvolver um projeto completo para o portfólio.",
+            tags: [
+                "Projeto",
+                "Front-end",
+                "Portfólio"
+            ]
+        },
+
+        {
+            mes: "MÊS 5",
+            titulo: "Git + Portfólio",
+            descricao:
+                "Organizar projetos e fortalecer o portfólio profissional.",
+            tags: [
+                "Git",
+                "GitHub",
+                "Portfólio"
+            ]
+        },
+
+        {
+            mes: "MÊS 6",
+            titulo: "Processos seletivos",
+            descricao:
+                "Preparar currículo, entrevistas e candidaturas.",
+            tags: [
+                "Currículo",
+                "Entrevistas",
+                "Vagas"
+            ]
+        }
+
+    ],
+
+
+    backend: [
+
+        {
+            mes: "MÊS 1",
+            titulo: "Java",
+            descricao:
+                "Construir uma base de programação e orientação a objetos.",
+            tags: [
+                "Java",
+                "Lógica",
+                "POO"
+            ]
+        },
+
+        {
+            mes: "MÊS 2",
+            titulo: "Java + SQL",
+            descricao:
+                "Aprender bancos de dados e integração com aplicações.",
+            tags: [
+                "Java",
+                "SQL",
+                "Banco de dados"
+            ]
+        },
+
+        {
+            mes: "MÊS 3",
+            titulo: "APIs",
+            descricao:
+                "Desenvolver e consumir APIs para aplicações backend.",
+            tags: [
+                "APIs",
+                "HTTP",
+                "JSON"
+            ]
+        },
+
+        {
+            mes: "MÊS 4",
+            titulo: "Docker",
+            descricao:
+                "Conhecer containers e ambientes de desenvolvimento.",
+            tags: [
+                "Docker",
+                "Containers",
+                "Backend"
+            ]
+        },
+
+        {
+            mes: "MÊS 5",
+            titulo: "Projeto Backend",
+            descricao:
+                "Construir uma aplicação backend para o portfólio.",
+            tags: [
+                "Projeto",
+                "Java",
+                "APIs"
+            ]
+        },
+
+        {
+            mes: "MÊS 6",
+            titulo: "Processos seletivos",
+            descricao:
+                "Preparar currículo, entrevistas técnicas e candidaturas.",
+            tags: [
+                "Currículo",
+                "Entrevistas",
+                "Vagas"
+            ]
+        }
+
+    ],
+
+
+    data: [
+
+        {
+            mes: "MÊS 1",
+            titulo: "Excel + fundamentos",
+            descricao:
+                "Fortalecer organização e análise de dados.",
+            tags: [
+                "Excel",
+                "Dados"
+            ]
+        },
+
+        {
+            mes: "MÊS 2",
+            titulo: "SQL",
+            descricao:
+                "Aprender consultas e manipulação de bancos de dados.",
+            tags: [
+                "SQL",
+                "Banco de dados"
+            ]
+        },
+
+        {
+            mes: "MÊS 3",
+            titulo: "Python",
+            descricao:
+                "Utilizar Python para análise e tratamento de dados.",
+            tags: [
+                "Python",
+                "Pandas"
+            ]
+        },
+
+        {
+            mes: "MÊS 4",
+            titulo: "Power BI",
+            descricao:
+                "Criar visualizações e dashboards.",
+            tags: [
+                "Power BI",
+                "Dashboards"
+            ]
+        },
+
+        {
+            mes: "MÊS 5",
+            titulo: "Projeto de dados",
+            descricao:
+                "Desenvolver um projeto completo para o portfólio.",
+            tags: [
+                "Projeto",
+                "Dados",
+                "Portfólio"
+            ]
+        },
+
+        {
+            mes: "MÊS 6",
+            titulo: "Processos seletivos",
+            descricao:
+                "Preparar currículo e buscar oportunidades.",
+            tags: [
+                "Currículo",
+                "Entrevistas",
+                "Vagas"
+            ]
+        }
+
+    ]
+
+};
+
+
+// ==========================================
+// RENDERIZAR ROADMAP
+// ==========================================
+
+function renderRoadmap() {
+
+    if (!roadmapList) {
+        return;
+    }
+
+
+    // Por enquanto usa Front-end
+    // como demonstração
+
+    let career =
+        "frontend";
+
+
+    const profile =
+        localStorage.getItem(
+            "careerMindProfile"
+        );
+
+
+    // Tenta identificar a carreira
+    // pelo objetivo do estudante
+
+    if (profile) {
+
+        try {
+
+            const data =
+                JSON.parse(profile);
+
+
+            const objective =
+                (
+                    data.objetivo || ""
+                ).toLowerCase();
+
+
+            if (
+                objective.includes(
+                    "backend"
+                ) ||
+                objective.includes(
+                    "back-end"
+                )
+            ) {
+
+                career = "backend";
+
+            }
+
+            else if (
+                objective.includes(
+                    "dados"
+                )
+            ) {
+
+                career = "data";
+
+            }
+
+        }
+
+        catch (error) {
+
+            console.log(
+                "Perfil não encontrado."
+            );
+
+        }
+
+    }
+
+
+    const roadmap =
+        roadmaps[career];
+
+
+    roadmapList.innerHTML = "";
+
+
+    roadmap.forEach(
+        function (step, index) {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "roadmap-item";
+
+
+            const tags =
+                step.tags
+                    .map(
+                        function (tag) {
+
+                            return `
+                                <span class="roadmap-tag">
+                                    ${tag}
+                                </span>
+                            `;
+
+                        }
+                    )
+                    .join("");
+
+
+            item.innerHTML = `
+
+                <div class="roadmap-number">
+                    ${index + 1}
+                </div>
+
+                <div class="roadmap-content">
+
+                    <span class="roadmap-month">
+                        ${step.mes}
+                    </span>
+
+                    <h4>
+                        ${step.titulo}
+                    </h4>
+
+                    <p>
+                        ${step.descricao}
+                    </p>
+
+                    <div class="roadmap-tags">
+                        ${tags}
+                    </div>
+
+                </div>
+
+            `;
+
+
+            roadmapList.appendChild(
+                item
+            );
+
+        }
+    );
+
+
+    // Informações do perfil
+
+    if (profile) {
+
+        try {
+
+            const data =
+                JSON.parse(profile);
+
+
+            if (
+                roadmapDeadline &&
+                data.prazo
+            ) {
+
+                roadmapDeadline.textContent =
+                    data.prazo;
+
+            }
+
+
+            if (
+                roadmapHours &&
+                data.horas
+            ) {
+
+                roadmapHours.textContent =
+                    data.horas;
+
+            }
+
+
+            if (
+                roadmapObjective &&
+                data.objetivo
+            ) {
+
+                roadmapObjective.textContent =
+                    data.objetivo;
+
+            }
+
+        }
+
+        catch (error) {
+
+            console.log(
+                "Não foi possível carregar o perfil."
+            );
+
+        }
+
+    }
+
+}
+
+
+// ==========================================
+// BOTÃO "VER MEU ROADMAP"
+// ==========================================
+
+if (goRoadmapBtn) {
+
+    goRoadmapBtn.addEventListener(
+        "click",
+        function () {
+
+            const roadmap =
+                document.getElementById(
+                    "roadmap"
+                );
+
+            if (roadmap) {
+
+                roadmap.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            }
+
+        }
+    );
+
+}
+
+
+// Renderiza inicialmente
+
+renderRoadmap();
+
+
+// Mostra a primeira questão
+
+showChallengeQuestion(1);
 
 // ==========================================
 // CARREGAR ANÁLISE INICIAL

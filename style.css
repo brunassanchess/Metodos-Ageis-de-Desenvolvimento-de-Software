@@ -2069,3 +2069,745 @@ button {
     }
 
 }
+/* ==========================================
+   EPIC 6 - VALIDAÇÃO
+   ========================================== */
+
+.validation-section {
+    background: #F5FFFA;
+}
+
+.validation-container {
+    max-width: 900px;
+    margin: auto;
+}
+
+
+/* DESAFIO */
+
+.challenge-card {
+    background: white;
+
+    border: 1px solid #D5EFEB;
+
+    border-radius: 20px;
+
+    padding: 35px;
+
+    box-shadow:
+        0 18px 50px rgba(64, 224, 208, 0.10);
+}
+
+.challenge-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+
+    margin-bottom: 25px;
+}
+
+.challenge-label {
+    color: #168F86;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.3px;
+}
+
+.challenge-header h3 {
+    margin-top: 5px;
+
+    font-size: 25px;
+}
+
+.challenge-level {
+    padding: 7px 13px;
+
+    border-radius: 20px;
+
+    background: #E8FFFC;
+
+    color: #168F86;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+/* PROGRESSO */
+
+.challenge-progress {
+    margin-bottom: 30px;
+}
+
+.challenge-progress .progress {
+    margin-bottom: 7px;
+}
+
+.challenge-progress small {
+    color: #7A9290;
+
+    font-size: 10px;
+}
+
+
+/* PERGUNTAS */
+
+.challenge-question {
+    display: none;
+}
+
+.challenge-question.active {
+    display: block;
+}
+
+.challenge-question h4 {
+    font-size: 20px;
+
+    line-height: 1.4;
+
+    margin-bottom: 20px;
+}
+
+
+/* OPÇÕES */
+
+.challenge-options {
+    display: grid;
+
+    gap: 10px;
+}
+
+.challenge-options label {
+    display: flex;
+
+    align-items: center;
+
+    padding: 15px 17px;
+
+    border: 1px solid #D5EFEB;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.challenge-options label:hover {
+    background: #F0FFFC;
+
+    border-color: #40E0D0;
+}
+
+.challenge-options input {
+    margin-right: 12px;
+
+    accent-color: #40E0D0;
+}
+
+.challenge-options label:has(
+    input:checked
+) {
+    background: #E8FFFC;
+
+    border-color: #40E0D0;
+
+    color: #168F86;
+
+    font-weight: 700;
+}
+
+
+/* BOTÕES */
+
+.challenge-actions {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-top: 30px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid #E3F5F2;
+}
+
+
+/* RESULTADO */
+
+.validation-result {
+    margin-top: 25px;
+
+    padding: 35px;
+
+    background: white;
+
+    border: 1px solid #D5EFEB;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    box-shadow:
+        0 18px 50px rgba(64, 224, 208, 0.10);
+}
+
+.validation-result-icon {
+    width: 65px;
+    height: 65px;
+
+    display: grid;
+
+    place-items: center;
+
+    margin: 0 auto 15px;
+
+    border-radius: 50%;
+
+    background: #EDFFED;
+
+    color: #4FAF68;
+
+    font-size: 28px;
+
+    font-weight: 800;
+}
+
+.validation-result h3 {
+    margin: 8px 0;
+
+    font-size: 26px;
+}
+
+.validation-result p {
+    color: #667A78;
+
+    max-width: 600px;
+
+    margin: 0 auto 25px;
+}
+
+.validated-level,
+.validation-score {
+    display: inline-flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+    min-width: 160px;
+
+    margin: 5px;
+
+    padding: 15px;
+
+    border-radius: 13px;
+
+    background: #F5FFFA;
+
+    border: 1px solid #D5EFEB;
+}
+
+.validated-level span,
+.validation-score span {
+    color: #7A9290;
+
+    font-size: 10px;
+}
+
+.validated-level strong,
+.validation-score strong {
+    color: #168F86;
+
+    font-size: 20px;
+}
+
+
+/* ==========================================
+   EPIC 7 - ROADMAP
+   ========================================== */
+
+.roadmap-section {
+    background: white;
+}
+
+.roadmap-container {
+    max-width: 1000px;
+
+    margin: auto;
+}
+
+
+/* RESUMO */
+
+.roadmap-summary {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 30px;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    background: linear-gradient(
+        135deg,
+        #E8FFFC,
+        #EDFFED
+    );
+
+    border: 1px solid #D5EFEB;
+}
+
+.roadmap-summary h3 {
+    margin-top: 5px;
+
+    font-size: 24px;
+}
+
+.roadmap-summary p {
+    color: #667A78;
+
+    font-size: 13px;
+}
+
+.roadmap-meta {
+    display: flex;
+
+    gap: 35px;
+}
+
+.roadmap-meta div {
+    display: flex;
+
+    flex-direction: column;
+
+    text-align: center;
+}
+
+.roadmap-meta strong {
+    color: #168F86;
+
+    font-size: 20px;
+}
+
+.roadmap-meta small {
+    color: #7A9290;
+
+    font-size: 10px;
+}
+
+
+/* LISTA */
+
+.roadmap-list {
+    position: relative;
+
+    margin-top: 30px;
+}
+
+
+/* LINHA VERTICAL */
+
+.roadmap-list::before {
+    content: "";
+
+    position: absolute;
+
+    left: 27px;
+
+    top: 25px;
+
+    bottom: 25px;
+
+    width: 2px;
+
+    background: linear-gradient(
+        180deg,
+        #40E0D0,
+        #98FB98
+    );
+}
+
+
+/* ETAPA */
+
+.roadmap-item {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns: 55px 1fr;
+
+    gap: 20px;
+
+    margin-bottom: 18px;
+}
+
+.roadmap-number {
+    position: relative;
+
+    z-index: 2;
+
+    width: 55px;
+    height: 55px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        #40E0D0,
+        #98FB98
+    );
+
+    color: #123A36;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 5px 18px rgba(64, 224, 208, 0.20);
+}
+
+.roadmap-content {
+    padding: 22px;
+
+    background: white;
+
+    border: 1px solid #D5EFEB;
+
+    border-radius: 16px;
+
+    transition: 0.2s;
+}
+
+.roadmap-content:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 30px rgba(64, 224, 208, 0.10);
+}
+
+.roadmap-month {
+    color: #168F86;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.roadmap-content h4 {
+    margin: 5px 0;
+
+    font-size: 18px;
+}
+
+.roadmap-content p {
+    color: #667A78;
+
+    font-size: 12px;
+}
+
+.roadmap-tags {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-top: 12px;
+}
+
+.roadmap-tag {
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    background: #E8FFFC;
+
+    color: #168F86;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+
+/* DICA */
+
+.roadmap-tip {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 25px;
+
+    padding: 20px;
+
+    background: #F5FFFA;
+
+    border: 1px solid #D5EFEB;
+
+    border-radius: 15px;
+}
+
+.tip-icon {
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 11px;
+
+    background: #E8FFFC;
+
+    color: #168F86;
+}
+
+.roadmap-tip strong {
+    font-size: 13px;
+}
+
+.roadmap-tip p {
+    margin-top: 3px;
+
+    color: #667A78;
+
+    font-size: 11px;
+}
+
+
+/* ==========================================
+   RESPONSIVIDADE
+   ========================================== */
+
+@media (max-width: 700px) {
+
+    .challenge-card,
+    .validation-result {
+        padding: 23px;
+    }
+
+    .challenge-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .challenge-actions {
+        flex-wrap: wrap;
+    }
+
+    .challenge-actions .btn {
+        flex: 1;
+    }
+
+    .roadmap-summary {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .roadmap-meta {
+        width: 100%;
+
+        justify-content: space-between;
+    }
+
+    .roadmap-item {
+        grid-template-columns: 42px 1fr;
+
+        gap: 12px;
+    }
+
+    .roadmap-number {
+        width: 42px;
+        height: 42px;
+
+        font-size: 12px;
+    }
+
+    .roadmap-list::before {
+        left: 20px;
+    }
+
+    .roadmap-content {
+        padding: 17px;
+    }
+
+    .validated-level,
+    .validation-score {
+        width: 100%;
+
+        margin: 5px 0;
+    }
+
+}
+/* ==========================================
+   BALÃO DE VALIDAÇÃO DE HABILIDADES
+   ========================================== */
+
+.validation-card {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 35px;
+
+    margin-top: 20px;
+    margin-bottom: 30px;
+
+    padding: 30px 35px;
+
+    box-sizing: border-box;
+
+    border-radius: 20px;
+
+    background: linear-gradient(
+        135deg,
+        #168F86 0%,
+        #40E0D0 55%,
+        #98FB98 100%
+    );
+
+    color: white;
+
+    box-shadow:
+        0 18px 40px rgba(64, 224, 208, 0.18);
+}
+
+
+/* Conteúdo do balão */
+
+.validation-card-content {
+    flex: 1;
+}
+
+
+.validation-card .eyebrow {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #EDFFED;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.4px;
+}
+
+
+.validation-card h3 {
+    margin: 0 0 8px;
+
+    color: white;
+
+    font-size: 23px;
+    font-weight: 800;
+}
+
+
+.validation-card p {
+    max-width: 680px;
+
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.92);
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* Botão */
+
+.validation-card .btn-primary {
+    flex-shrink: 0;
+
+    min-width: 170px;
+
+    padding: 15px 22px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #98FB98;
+
+    color: #123A36;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.10);
+
+    transition: 0.2s ease;
+}
+
+
+.validation-card .btn-primary:hover {
+    background: #B5FFB5;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ==========================================
+   CELULAR
+   ========================================== */
+
+@media (max-width: 700px) {
+
+    .validation-card {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 20px;
+
+        padding: 25px;
+    }
+
+
+    .validation-card h3 {
+        font-size: 20px;
+    }
+
+
+    .validation-card .btn-primary {
+        width: 100%;
+    }
+
+}

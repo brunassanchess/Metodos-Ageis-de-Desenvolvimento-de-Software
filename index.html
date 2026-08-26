@@ -590,32 +590,365 @@
 
         <!-- VALIDAÇÃO -->
 
-        <div class="validation-card">
+        
 
-            <div>
+         <!-- VALIDAÇÃO -->
 
-                <span class="eyebrow">
-                    VALIDAÇÃO
+<div class="validation-card">
+
+    <div class="validation-card-content">
+
+        <span class="eyebrow">
+            VALIDAÇÃO DE HABILIDADES
+        </span>
+
+        <h3>
+            Mostre o que você realmente sabe.
+        </h3>
+
+        <p>
+            O CareerMind não depende apenas do que você informa no perfil.
+            Realize desafios práticos para validar suas competências.
+        </p>
+
+    </div>
+
+    <button
+        class="btn btn-primary"
+        id="validateSkillBtn"
+    >
+        Fazer desafio →
+    </button>
+
+</div>   
+
+    </div>
+
+</section>
+
+  <!-- ==========================================
+     EPIC 6 - VALIDAÇÃO DE HABILIDADES
+     ========================================== -->
+
+<section class="section validation-section" id="validacao">
+
+    <div class="section-heading">
+
+        <span class="eyebrow">
+            VALIDAÇÃO DE HABILIDADES
+        </span>
+
+        <h2>
+            Mostre o que você realmente sabe.
+        </h2>
+
+        <p>
+            Realize desafios práticos para demonstrar suas competências
+            e aumentar a confiabilidade do seu perfil.
+        </p>
+
+    </div>
+
+
+    <div class="validation-container">
+
+        <!-- DESAFIO -->
+
+        <div class="challenge-card" id="challengeCard">
+
+            <div class="challenge-header">
+
+                <div>
+
+                    <span class="challenge-label">
+                        DESAFIO PRÁTICO
+                    </span>
+
+                    <h3 id="challengeTitle">
+                        JavaScript
+                    </h3>
+
+                </div>
+
+                <span
+                    class="challenge-level"
+                    id="challengeLevel"
+                >
+                    Básico
                 </span>
 
-                <h3>
-                    Demonstre suas habilidades
-                </h3>
+            </div>
 
-                <p>
-                    O CareerMind não depende apenas do que você
-                    informa no perfil. Realize desafios para validar
-                    suas competências.
-                </p>
+
+            <div class="challenge-progress">
+
+                <div class="progress">
+
+                    <span
+                        id="challengeProgress"
+                        style="width: 33%"
+                    ></span>
+
+                </div>
+
+                <small id="challengeCounter">
+                    Questão 1 de 3
+                </small>
+
+            </div>
+
+
+            <!-- PERGUNTA 1 -->
+
+            <div
+                class="challenge-question active"
+                data-challenge="1"
+            >
+
+                <h4>
+                    Qual palavra-chave é utilizada para declarar
+                    uma variável que não pode ser reatribuída em JavaScript?
+                </h4>
+
+
+                <div class="challenge-options">
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="challenge1"
+                            value="a"
+                        >
+                        var
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="challenge1"
+                            value="b"
+                        >
+                        let
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="challenge1"
+                            value="c"
+                        >
+                        const
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="challenge1"
+                            value="d"
+                        >
+                        function
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- PERGUNTA 2 -->
+
+            <div
+                class="challenge-question"
+                data-challenge="2"
+            >
+
+                <h4>
+                    Qual método é utilizado para adicionar um item
+                    ao final de um array?
+                </h4>
+
+
+                <div class="challenge-options">
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="challenge2"
+                            value="a"
+                        >
+                        pop()
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="challenge2"
+                            value="b"
+                        >
+                        push()
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="challenge2"
+                            value="c"
+                        >
+                        shift()
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="challenge2"
+                            value="d"
+                        >
+                        slice()
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- PERGUNTA 3 -->
+
+            <div
+                class="challenge-question"
+                data-challenge="3"
+            >
+
+                <h4>
+                    Qual estrutura é utilizada para executar um código
+                    enquanto uma condição for verdadeira?
+                </h4>
+
+
+                <div class="challenge-options">
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="challenge3"
+                            value="a"
+                        >
+                        if
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="challenge3"
+                            value="b"
+                        >
+                        switch
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="challenge3"
+                            value="c"
+                        >
+                        while
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="challenge3"
+                            value="d"
+                        >
+                        return
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <div class="challenge-actions">
+
+                <button
+                    class="btn btn-light"
+                    id="challengeBack"
+                >
+                    ← Anterior
+                </button>
+
+                <button
+                    class="btn btn-primary"
+                    id="challengeNext"
+                >
+                    Próxima →
+                </button>
+
+                <button
+                    class="btn btn-primary hidden"
+                    id="finishChallenge"
+                >
+                    Finalizar desafio
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESULTADO -->
+
+        <div
+            class="validation-result hidden"
+            id="validationResult"
+        >
+
+            <div class="validation-result-icon">
+                ✓
+            </div>
+
+            <span class="eyebrow">
+                RESULTADO
+            </span>
+
+            <h3>
+                Competência validada!
+            </h3>
+
+            <p id="validationResultText">
+                Seu desempenho demonstra domínio básico de JavaScript.
+            </p>
+
+
+            <div class="validated-level">
+
+                <span>
+                    Nível validado
+                </span>
+
+                <strong id="validatedLevel">
+                    Básico
+                </strong>
+
+            </div>
+
+
+            <div class="validation-score">
+
+                <span>
+                    Aproveitamento
+                </span>
+
+                <strong id="validationScore">
+                    100%
+                </strong>
 
             </div>
 
 
             <button
                 class="btn btn-primary"
-                id="validateSkillBtn"
+                id="goRoadmapBtn"
             >
-                Fazer desafio →
+                Ver meu roadmap →
             </button>
 
         </div>
@@ -623,7 +956,129 @@
     </div>
 
 </section>
-  </main>
+
+
+<!-- ==========================================
+     EPIC 7 - ROADMAP PERSONALIZADO
+     ========================================== -->
+
+<section
+    class="section roadmap-section"
+    id="roadmap"
+>
+
+    <div class="section-heading">
+
+        <span class="eyebrow">
+            ROADMAP PERSONALIZADO
+        </span>
+
+        <h2>
+            Seu caminho até o objetivo.
+        </h2>
+
+        <p>
+            O CareerMind organiza o que você precisa desenvolver
+            considerando suas lacunas, disponibilidade e prazo.
+        </p>
+
+    </div>
+
+
+    <div class="roadmap-container">
+
+        <!-- RESUMO DO OBJETIVO -->
+
+        <div class="roadmap-summary">
+
+            <div>
+
+                <span class="small-label">
+                    SEU OBJETIVO
+                </span>
+
+                <h3 id="roadmapObjective">
+                    Estágio em Front-end
+                </h3>
+
+                <p>
+                    Plano personalizado para desenvolver
+                    as competências necessárias.
+                </p>
+
+            </div>
+
+
+            <div class="roadmap-meta">
+
+                <div>
+
+                    <strong id="roadmapDeadline">
+                        6 meses
+                    </strong>
+
+                    <small>
+                        Prazo
+                    </small>
+
+                </div>
+
+                <div>
+
+                    <strong id="roadmapHours">
+                        7-10h
+                    </strong>
+
+                    <small>
+                        Por semana
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ETAPAS -->
+
+        <div
+            class="roadmap-list"
+            id="roadmapList"
+        >
+
+            <!-- JavaScript cria as etapas -->
+
+        </div>
+
+
+        <div class="roadmap-tip">
+
+            <span class="tip-icon">
+                ✦
+            </span>
+
+            <div>
+
+                <strong>
+                    Dica do CareerMind
+                </strong>
+
+                <p>
+                    Comece pelas competências que apresentam
+                    maior diferença entre seu nível atual e o
+                    nível esperado pelo mercado.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
 
   <footer class="footer">
     <div>
