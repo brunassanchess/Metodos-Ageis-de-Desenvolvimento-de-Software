@@ -86,7 +86,7 @@ button {
 
 .nav {
   display: flex;
-  gap: 30px;
+  gap: 24px;
   align-items: center;
 }
 
@@ -244,6 +244,7 @@ button {
 .hero-visual {
   min-height: 450px;
   position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -381,7 +382,7 @@ button {
 }
 
 .skill-card {
-  bottom: 55px;
+  bottom: 10px;
   left: 0;
 }
 
@@ -786,6 +787,14 @@ button {
   font-weight: 700;
 }
 
+.result-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
 /* FOOTER */
 
 .footer {
@@ -812,6 +821,32 @@ button {
 }
 
 /* RESPONSIVIDADE */
+
+@media (max-width: 1050px) {
+  .nav {
+    display: none;
+    position: absolute;
+    top: 76px;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    flex-direction: column;
+    background: white;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav.open {
+    display: flex;
+  }
+
+  .header-login {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
 
 @media (max-width: 900px) {
   .nav {
@@ -856,30 +891,6 @@ button {
     padding: 0 5%;
   }
 
-  .nav {
-    display: none;
-    position: absolute;
-    top: 76px;
-    left: 0;
-    right: 0;
-    padding: 20px;
-    flex-direction: column;
-    background: white;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .nav.open {
-    display: flex;
-  }
-
-  .header-login {
-    display: none;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-
   .hero h1 {
     letter-spacing: -2px;
   }
@@ -894,6 +905,7 @@ button {
 
   .skill-card {
     left: 2%;
+    bottom: 10px;
   }
 
   .profile-card,
@@ -954,11 +966,12 @@ button {
   }
 
   .career-card {
-    right: -10px;
+    right: 0;
   }
 
   .skill-card {
-    left: -10px;
+    left: 0;
+    bottom: 5px;
   }
 
   .form-actions,
@@ -969,6 +982,14 @@ button {
   .form-actions .btn,
   .diagnosis-actions .btn {
     flex: 1;
+  }
+
+  .result-actions {
+    flex-direction: column;
+  }
+
+  .result-actions .btn {
+    width: 100%;
   }
 }
 /* ==========================================

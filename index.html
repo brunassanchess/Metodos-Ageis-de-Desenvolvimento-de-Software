@@ -5,26 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CareerMind | Seu caminho profissional</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
 </head>
 
 <body>
   <header class="header">
     <a href="#inicio" class="logo">Career<span>Mind</span></a>
 
-    <nav class="nav" id="nav">
-      <a href="#inicio">Início</a>
-      <a href="#perfil">Meu Perfil</a>
-      <a href="#descoberta">Descobrir Carreiras</a>
-      <a href="#diagnostico">Diagnóstico</a>
-      <a href="#competencias">Competências</a>
-    </nav>
+   <nav class="nav" id="nav">
+    <a href="#inicio">Início</a>
+    <a href="#perfil">Meu Perfil</a>
+    <a href="#descoberta">Descoberta de perfil</a>
+    <a href="#diagnostico">Diagnóstico</a>
+    <a href="#competencias">Competências</a>
+    <a href="#validacao">Validação</a>
+    <a href="#roadmap">Roadmap</a>
+     </nav>
+    <a href="#perfil" class="btn btn-outline header-login">
+      Criar perfil
+    </a>
 
-    <button class="btn btn-outline header-login" onclick="alert('Área de login em desenvolvimento.')">
-      Entrar
-    </button>
-
-    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav" >☰</button>
   </header>
 
   <main>
@@ -259,8 +259,8 @@
         <div class="success-message hidden" id="profileSuccess">
           <div class="success-icon">✓</div>
           <h3>Perfil criado com sucesso!</h3>
-          <p>Agora vamos descobrir quais caminhos profissionais combinam com você.</p>
-          <a href="#diagnostico" class="btn btn-primary">Começar diagnóstico →</a>
+          <p>Agora conheça como suas informações serão usadas para identificar afinidades profissionais.</p>
+          <a href="#descoberta" class="btn btn-primary">Descobrir meu perfil →</a>
         </div>
       </div>
     </section>
@@ -301,94 +301,395 @@
       </div>
     </section>
 
-    <!-- DIAGNÓSTICO -->
-    <section class="section diagnosis-section" id="diagnostico">
-      <div class="section-heading">
-        <span class="eyebrow">DIAGNÓSTICO INICIAL</span>
-        <h2>Qual caminho combina com você?</h2>
-        <p>Responda três perguntas rápidas para conhecer uma primeira indicação do seu perfil.</p>
+   <!-- DIAGNÓSTICO -->
+<section class="section diagnosis-section" id="diagnostico">
+
+  <div class="section-heading">
+    <span class="eyebrow">DIAGNÓSTICO INICIAL</span>
+    <h2>Qual caminho combina com você?</h2>
+    <p>
+      Responda cinco perguntas rápidas para conhecer uma primeira
+      indicação do seu perfil.
+    </p>
+  </div>
+
+  <div class="diagnosis-card">
+
+    <div class="question-progress">
+      <span id="questionCounter">Pergunta 1 de 5</span>
+
+      <div class="progress">
+        <span id="questionProgress" style="width: 20%"></span>
       </div>
+    </div>
 
-      <div class="diagnosis-card">
-        <div class="question-progress">
-          <span id="questionCounter">Pergunta 1 de 3</span>
-          <div class="progress"><span id="questionProgress" style="width:33.33%"></span></div>
-        </div>
+    <!-- PERGUNTA 1 -->
+    <div class="question active" data-question="1">
+      <h3>Qual atividade você mais gostaria de realizar?</h3>
 
-        <div class="question active" data-question="1">
-          <h3>Qual atividade você mais gostaria de realizar?</h3>
-          <div class="options">
-            <label><input type="radio" name="q1" value="tech"> <span>Criar sites e aplicativos</span></label>
-            <label><input type="radio" name="q1" value="data"> <span>Analisar dados</span></label>
-            <label><input type="radio" name="q1" value="business"> <span>Criar estratégias para empresas</span></label>
-            <label><input type="radio" name="q1" value="people"> <span>Trabalhar com pessoas</span></label>
-            <label><input type="radio" name="q1" value="product"> <span>Criar projetos e produtos</span></label>
-          </div>
-        </div>
+      <div class="options">
+        <label>
+          <input
+            type="radio"
+            name="q1"
+            value="frontend"
+            data-frontend="3"
+            data-backend="0"
+            data-data="0"
+            data-product="1"
+          >
+          <span>Criar interfaces de sites e aplicativos</span>
+        </label>
 
-        <div class="question" data-question="2">
-          <h3>Como você prefere aprender?</h3>
-          <div class="options">
-            <label><input type="radio" name="q2" value="tech"> <span>Praticando</span></label>
-            <label><input type="radio" name="q2" value="data"> <span>Assistindo vídeos</span></label>
-            <label><input type="radio" name="q2" value="business"> <span>Lendo conteúdos</span></label>
-            <label><input type="radio" name="q2" value="product"> <span>Resolvendo problemas</span></label>
-          </div>
-        </div>
+        <label>
+          <input
+            type="radio"
+            name="q1"
+            value="backend"
+            data-frontend="0"
+            data-backend="3"
+            data-data="1"
+            data-product="1"
+          >
+          <span>Construir a lógica e o funcionamento interno de aplicações</span>
+        </label>
 
-        <div class="question" data-question="3">
-          <h3>Qual área mais desperta seu interesse?</h3>
-          <div class="options">
-            <label><input type="radio" name="q3" value="tech"> <span>Tecnologia</span></label>
-            <label><input type="radio" name="q3" value="business"> <span>Negócios</span></label>
-            <label><input type="radio" name="q3" value="product"> <span>Design</span></label>
-            <label><input type="radio" name="q3" value="tech"> <span>Engenharia</span></label>
-            <label><input type="radio" name="q3" value="business"> <span>Marketing</span></label>
-          </div>
-        </div>
+        <label>
+          <input
+            type="radio"
+            name="q1"
+            value="data"
+            data-frontend="0"
+            data-backend="1"
+            data-data="3"
+            data-product="1"
+          >
+          <span>Analisar informações e encontrar padrões</span>
+        </label>
 
-        <div class="diagnosis-actions">
-          <button type="button" class="btn btn-light" id="diagnosisBack">← Anterior</button>
-          <button type="button" class="btn btn-primary" id="diagnosisNext">Próxima →</button>
-          <button type="button" class="btn btn-primary hidden" id="finishDiagnosis">Finalizar diagnóstico</button>
-        </div>
+        <label>
+          <input
+            type="radio"
+            name="q1"
+            value="product"
+            data-frontend="1"
+            data-backend="1"
+            data-data="1"
+            data-product="3"
+          >
+          <span>Planejar soluções e definir prioridades</span>
+        </label>
       </div>
+    </div>
 
-      <!-- RESULTADO -->
-      <div class="result-card hidden" id="resultCard">
-        <div class="result-badge">✦ RESULTADO DO DIAGNÓSTICO</div>
-        <h3>Seu perfil apresenta maior compatibilidade com <span>Tecnologia.</span></h3>
-        <p>Essas recomendações são baseadas nas informações fornecidas durante seu diagnóstico.</p>
+    <!-- PERGUNTA 2 -->
+    <div class="question" data-question="2">
+      <h3>Que tipo de problema você mais gostaria de resolver?</h3>
 
-        <div class="career-results">
-          <div class="career-result">
-            <div class="career-info">
-              <span>Desenvolvimento Front-end</span>
-              <strong>87%</strong>
-            </div>
-            <div class="progress"><span style="width:87%"></span></div>
-          </div>
+      <div class="options">
+        <label>
+          <input
+            type="radio"
+            name="q2"
+            value="frontend"
+            data-frontend="3"
+            data-backend="0"
+            data-data="0"
+            data-product="1"
+          >
+          <span>Tornar uma tela mais clara e fácil de usar</span>
+        </label>
 
-          <div class="career-result">
-            <div class="career-info">
-              <span>Dados</span>
-              <strong>78%</strong>
-            </div>
-            <div class="progress"><span style="width:78%"></span></div>
-          </div>
+        <label>
+          <input
+            type="radio"
+            name="q2"
+            value="backend"
+            data-frontend="0"
+            data-backend="3"
+            data-data="1"
+            data-product="1"
+          >
+          <span>Criar regras de negócio e processar dados com segurança</span>
+        </label>
 
-          <div class="career-result">
-            <div class="career-info">
-              <span>Produto</span>
-              <strong>70%</strong>
-            </div>
-            <div class="progress"><span style="width:70%"></span></div>
-          </div>
-        </div>
+        <label>
+          <input
+            type="radio"
+            name="q2"
+            value="data"
+            data-frontend="0"
+            data-backend="1"
+            data-data="3"
+            data-product="1"
+          >
+          <span>Descobrir por que um indicador mudou</span>
+        </label>
 
-        <button class="btn btn-primary" id="restartDiagnosis">Refazer diagnóstico</button>
+        <label>
+          <input
+            type="radio"
+            name="q2"
+            value="product"
+            data-frontend="1"
+            data-backend="1"
+            data-data="1"
+            data-product="3"
+          >
+          <span>Decidir qual solução gera mais valor para o usuário</span>
+        </label>
       </div>
-    </section>
+    </div>
+
+    <!-- PERGUNTA 3 -->
+    <div class="question" data-question="3">
+      <h3>Em um projeto, o que mais chama a sua atenção?</h3>
+
+      <div class="options">
+        <label>
+          <input
+            type="radio"
+            name="q3"
+            value="frontend"
+            data-frontend="3"
+            data-backend="0"
+            data-data="0"
+            data-product="1"
+          >
+          <span>A aparência e a interação da interface</span>
+        </label>
+
+        <label>
+          <input
+            type="radio"
+            name="q3"
+            value="backend"
+            data-frontend="0"
+            data-backend="3"
+            data-data="1"
+            data-product="1"
+          >
+          <span>A arquitetura, as APIs e a comunicação entre sistemas</span>
+        </label>
+
+        <label>
+          <input
+            type="radio"
+            name="q3"
+            value="data"
+            data-frontend="0"
+            data-backend="1"
+            data-data="3"
+            data-product="1"
+          >
+          <span>As métricas e evidências geradas</span>
+        </label>
+
+        <label>
+          <input
+            type="radio"
+            name="q3"
+            value="product"
+            data-frontend="1"
+            data-backend="1"
+            data-data="1"
+            data-product="3"
+          >
+          <span>As necessidades do usuário e as prioridades</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- PERGUNTA 4 -->
+    <div class="question" data-question="4">
+      <h3>Qual conjunto de ferramentas parece mais interessante?</h3>
+
+      <div class="options">
+        <label>
+          <input
+            type="radio"
+            name="q4"
+            value="frontend"
+            data-frontend="3"
+            data-backend="0"
+            data-data="0"
+            data-product="1"
+          >
+          <span>HTML, CSS e JavaScript</span>
+        </label>
+
+        <label>
+          <input
+            type="radio"
+            name="q4"
+            value="backend"
+            data-frontend="0"
+            data-backend="3"
+            data-data="1"
+            data-product="1"
+          >
+          <span>Java, APIs e bancos de dados</span>
+        </label>
+
+        <label>
+          <input
+            type="radio"
+            name="q4"
+            value="data"
+            data-frontend="0"
+            data-backend="1"
+            data-data="3"
+            data-product="1"
+          >
+          <span>Planilhas, SQL e estatística</span>
+        </label>
+
+        <label>
+          <input
+            type="radio"
+            name="q4"
+            value="product"
+            data-frontend="1"
+            data-backend="1"
+            data-data="1"
+            data-product="3"
+          >
+          <span>Pesquisa, protótipos e planejamento</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- PERGUNTA 5 -->
+    <div class="question" data-question="5">
+      <h3>Qual resultado daria mais satisfação ao final de um projeto?</h3>
+
+      <div class="options">
+        <label>
+          <input
+            type="radio"
+            name="q5"
+            value="frontend"
+            data-frontend="3"
+            data-backend="0"
+            data-data="0"
+            data-product="1"
+          >
+          <span>Uma interface funcionando e agradável de usar</span>
+        </label>
+
+        <label>
+          <input
+            type="radio"
+            name="q5"
+            value="backend"
+            data-frontend="0"
+            data-backend="3"
+            data-data="1"
+            data-product="1"
+          >
+          <span>Um serviço confiável processando regras e dados</span>
+        </label>
+
+        <label>
+          <input
+            type="radio"
+            name="q5"
+            value="data"
+            data-frontend="0"
+            data-backend="1"
+            data-data="3"
+            data-product="1"
+          >
+          <span>Uma análise que apoie uma decisão importante</span>
+        </label>
+
+        <label>
+          <input
+            type="radio"
+            name="q5"
+            value="product"
+            data-frontend="1"
+            data-backend="1"
+            data-data="1"
+            data-product="3"
+          >
+          <span>Um plano de produto alinhado ao usuário e ao negócio</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="diagnosis-actions">
+      <button
+        type="button"
+        class="btn btn-light"
+        id="diagnosisBack"
+      >
+        ← Anterior
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="diagnosisNext"
+      >
+        Próxima →
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-primary hidden"
+        id="finishDiagnosis"
+      >
+        Finalizar diagnóstico
+      </button>
+    </div>
+
+  </div>
+
+  <!-- RESULTADO -->
+  <div class="result-card hidden" id="resultCard">
+
+    <div class="result-badge">
+      ✦ RESULTADO DO DIAGNÓSTICO
+    </div>
+
+    <h3>
+      Seu perfil apresenta maior compatibilidade com
+      <span id="diagnosisTopCareer">
+        Desenvolvimento Front-end.
+      </span>
+    </h3>
+
+    <p id="diagnosisExplanation">
+      Esta indicação será calculada a partir das respostas selecionadas.
+    </p>
+
+    <div
+      class="career-results"
+      id="diagnosisRanking"
+    ></div>
+
+    <p class="diagnosis-disclaimer">
+      Resultado orientativo do protótipo. Ele identifica padrões de
+      interesse e não substitui uma avaliação profissional validada.
+    </p>
+
+    <div class="result-actions">
+      <button
+        class="btn btn-primary"
+        id="restartDiagnosis"
+      >
+        Refazer diagnóstico
+      </button>
+
+      <a href="#competencias" class="btn btn-outline">
+        Ver análise de competências
+      </a>
+    </div>
+
+  </div>
+
+</section>
     <!-- ==========================================
      ANÁLISE DE COMPETÊNCIAS
      EPIC 4 + EPIC 5
@@ -425,31 +726,35 @@
                     OBJETIVO PROFISSIONAL
                 </span>
 
-                <h3>
-                    Desenvolvedor Backend
+                <h3 id="careerObjectiveTitle">
+                    Desenvolvedor Front-end
                 </h3>
 
-                <p>
+                <p id="careerSelectionContext">
                     Competências baseadas em demandas do mercado
                     e referências de especialistas.
                 </p>
             </div>
 
-            <select id="careerSelect">
+           <select id="careerSelect">
 
-                <option value="backend">
-                    Desenvolvedor Backend
-                </option>
+  <option value="frontend">
+    Desenvolvedor Front-end
+  </option>
 
-                <option value="frontend">
-                    Desenvolvedor Front-end
-                </option>
+  <option value="backend">
+    Desenvolvedor Backend
+  </option>
 
-                <option value="data">
-                    Analista de Dados
-                </option>
+  <option value="data">
+    Analista de Dados
+  </option>
 
-            </select>
+  <option value="product">
+    Produto Digital
+  </option>
+
+</select>
 
         </div>
 
@@ -1001,7 +1306,7 @@
                     Estágio em Front-end
                 </h3>
 
-                <p>
+                <p id="roadmapPlanningNote">
                     Plano personalizado para desenvolver
                     as competências necessárias.
                 </p>
@@ -1091,4 +1396,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-

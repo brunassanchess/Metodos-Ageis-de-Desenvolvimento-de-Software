@@ -13,7 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (menuToggle && nav) {
         menuToggle.addEventListener("click", function () {
-            nav.classList.toggle("open");
+            const isOpen = nav.classList.toggle("open");
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
         });
 
         const links = nav.querySelectorAll("a");
@@ -21,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
         links.forEach(function (link) {
             link.addEventListener("click", function () {
                 nav.classList.remove("open");
+                menuToggle.setAttribute("aria-expanded", "false");
             });
         });
     }
@@ -598,6 +600,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const restartDiagnosis =
         document.getElementById("restartDiagnosis");
 
+    const diagnosisSection =
+        document.getElementById("diagnostico");
+
+    const diagnosisTopCareer =
+        document.getElementById("diagnosisTopCareer");
+
+    const diagnosisExplanation =
+        document.getElementById("diagnosisExplanation");
+
+    const diagnosisRanking =
+        document.getElementById("diagnosisRanking");
+
 
     let currentQuestion = 1;
 
@@ -628,7 +642,8 @@ document.addEventListener("DOMContentLoaded", function () {
             questionCounter.textContent =
                 "Pergunta " +
                 questionNumber +
-                " de 3";
+                " de " +
+                questions.length;
 
         }
 
@@ -636,7 +651,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (questionProgress) {
 
             const percentage =
-                (questionNumber / 3) * 100;
+                (questionNumber / questions.length) * 100;
 
             questionProgress.style.width =
                 percentage + "%";
@@ -657,7 +672,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (diagnosisNext) {
 
-            if (questionNumber === 3) {
+            if (questionNumber === questions.length) {
                 diagnosisNext.classList.add("hidden");
             } else {
                 diagnosisNext.classList.remove("hidden");
@@ -668,7 +683,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (finishDiagnosis) {
 
-            if (questionNumber === 3) {
+            if (questionNumber === questions.length) {
                 finishDiagnosis.classList.remove("hidden");
             } else {
                 finishDiagnosis.classList.add("hidden");
@@ -697,6 +712,137 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
+    function calculateDiagnosisResult() {
+
+        const areas = [
+            { key: "frontend", name: "Desenvolvimento Front-end", score: 0 },
+            { key: "backend", name: "Desenvolvimento Backend", score: 0 },
+            { key: "data", name: "Dados", score: 0 },
+            { key: "product", name: "Produto", score: 0 }
+        ];
+
+        const answers = [];
+
+        questions.forEach(function (question) {
+            const answer = question.querySelector(
+                'input[type="radio"]:checked'
+            );
+
+            if (answer) {
+                answers.push(answer);
+
+                areas.forEach(function (area) {
+                    area.score += Number(
+                        answer.dataset[area.key]
+                    );
+                });
+            }
+        });
+
+        if (answers.length !== questions.length) {
+            return null;
+        }
+
+        const maximumScore = questions.length * 3;
+
+        areas.forEach(function (area) {
+            area.percentage = Math.round(
+                (area.score / maximumScore) * 100
+            );
+        });
+
+        areas.sort(function (firstArea, secondArea) {
+            return secondArea.score - firstArea.score;
+        });
+
+        return {
+            maximumScore: maximumScore,
+            ranking: areas,
+            topAreas: areas.filter(function (area) {
+                return area.score === areas[0].score;
+            })
+        };
+
+    }
+
+
+    function renderDiagnosisResult(result) {
+
+        const topNames = result.topAreas.map(function (area) {
+            return area.name;
+        });
+
+        const formattedTopNames =
+            topNames.length === 1
+                ? topNames[0]
+                : topNames.slice(0, -1).join(", ") +
+                    " e " + topNames[topNames.length - 1];
+
+        if (diagnosisTopCareer) {
+            diagnosisTopCareer.textContent =
+                formattedTopNames + ".";
+        }
+
+        if (diagnosisExplanation) {
+            diagnosisExplanation.textContent =
+                result.topAreas.length > 1
+                    ? "Houve empate na maior pontuação de afinidade entre " +
+                        formattedTopNames +
+                        ". Explore essas áreas como caminhos orientativos; " +
+                        "o percentual não representa probabilidade científica."
+                    : "As respostas indicam maior pontuação de afinidade com " +
+                        formattedTopNames +
+                        ". Este resultado é orientativo, não uma probabilidade científica.";
+        }
+
+        if (diagnosisRanking) {
+            diagnosisRanking.textContent = "";
+
+            result.ranking.forEach(function (area) {
+                const item = document.createElement("div");
+                const info = document.createElement("div");
+                const name = document.createElement("span");
+                const percentage = document.createElement("strong");
+                const progress = document.createElement("div");
+                const progressBar = document.createElement("span");
+
+                info.className = "career-info";
+                progress.className = "progress";
+                name.textContent = area.name;
+                percentage.textContent =
+                    area.percentage + "% de pontuação de afinidade";
+                progressBar.style.width = area.percentage + "%";
+
+                info.appendChild(name);
+                info.appendChild(percentage);
+                progress.appendChild(progressBar);
+                item.appendChild(info);
+                item.appendChild(progress);
+                diagnosisRanking.appendChild(item);
+            });
+        }
+
+        localStorage.setItem(
+            "careerMindDiagnosisResult",
+            JSON.stringify({
+                type: "resultado orientativo",
+                maximumScore: result.maximumScore,
+                topAreas: topNames,
+                ranking: result.ranking.map(function (area) {
+                    return {
+                        area: area.name,
+                        score: area.score,
+                        affinityPercentage: area.percentage
+                    };
+                }),
+                disclaimer:
+                    "Não substitui uma avaliação profissional."
+            })
+        );
+
+    }
+
+
     // ==========================================
     // PRÓXIMA PERGUNTA
     // ==========================================
@@ -715,7 +861,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            if (currentQuestion < 3) {
+            if (currentQuestion < questions.length) {
 
                 currentQuestion++;
 
@@ -767,6 +913,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
+            const diagnosisResult =
+                calculateDiagnosisResult();
+
+            if (!diagnosisResult) {
+                alert(
+                    "Responda todas as perguntas antes de finalizar."
+                );
+
+                return;
+            }
+
+            renderDiagnosisResult(diagnosisResult);
+            applyDiagnosisCareerRecommendation(
+                diagnosisResult
+            );
+
 
             if (resultCard) {
 
@@ -794,9 +956,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             const radioButtons =
-                document.querySelectorAll(
-                    'input[type="radio"]'
-                );
+                diagnosisSection
+                    ? diagnosisSection.querySelectorAll(
+                        'input[type="radio"]'
+                    )
+                    : [];
 
 
             radioButtons.forEach(function (radio) {
@@ -812,10 +976,6 @@ document.addEventListener("DOMContentLoaded", function () {
             currentQuestion = 1;
 
             showQuestion(currentQuestion);
-
-
-            const diagnosisSection =
-                document.getElementById("diagnostico");
 
 
             if (diagnosisSection) {
@@ -862,6 +1022,22 @@ const skillsMissing =
 
 const skillsMatch =
     document.getElementById("skillsMatch");
+
+const careerObjectiveTitle =
+    document.getElementById("careerObjectiveTitle");
+
+const careerSelectionContext =
+    document.getElementById("careerSelectionContext");
+
+const careerNames = {
+    frontend: "Desenvolvedor Front-end",
+    backend: "Desenvolvedor Backend",
+    data: "Analista de Dados",
+    product: "Produto Digital"
+};
+
+let careerRecommendation = null;
+let careerSelectionSource = "initial";
 
 
 // ==========================================
@@ -987,6 +1163,46 @@ const careerData = {
             nivelEstudante: 1
         }
 
+    ],
+
+
+    product: [
+
+        {
+            nome: "Pesquisa com usuários",
+            demanda: "Alta",
+            nivelMercado: 3,
+            nivelEstudante: 1
+        },
+
+        {
+            nome: "Gestão de produto",
+            demanda: "Alta",
+            nivelMercado: 3,
+            nivelEstudante: 1
+        },
+
+        {
+            nome: "Prototipação",
+            demanda: "Alta",
+            nivelMercado: 2,
+            nivelEstudante: 1
+        },
+
+        {
+            nome: "Métricas de produto",
+            demanda: "Média",
+            nivelMercado: 2,
+            nivelEstudante: 0
+        },
+
+        {
+            nome: "Priorização",
+            demanda: "Média",
+            nivelMercado: 2,
+            nivelEstudante: 1
+        }
+
     ]
 
 };
@@ -1019,6 +1235,177 @@ function getLevelText(level) {
 }
 
 
+function saveCurrentCareerSelection() {
+
+    if (!careerSelect) {
+        return;
+    }
+
+    localStorage.setItem(
+        "careerMindCareerSelection",
+        JSON.stringify({
+            career:
+                careerSelectionSource === "tie"
+                    ? null
+                    : careerSelect.value,
+            source: careerSelectionSource
+        })
+    );
+
+}
+
+
+function updateCareerSelectionPresentation() {
+
+    if (!careerSelect) {
+        return;
+    }
+
+    const isTie =
+        careerSelectionSource === "tie" &&
+        careerRecommendation;
+
+    const careerName =
+        careerNames[careerSelect.value];
+
+    if (careerObjectiveTitle) {
+        careerObjectiveTitle.textContent = isTie
+            ? "Escolha uma carreira"
+            : careerName;
+    }
+
+    if (!careerSelectionContext) {
+        return;
+    }
+
+    if (careerSelectionSource === "diagnosis") {
+        careerSelectionContext.textContent =
+            "Sugestão baseada no diagnóstico. Você pode escolher outra carreira.";
+    }
+
+    else if (
+        careerSelectionSource === "tie" &&
+        careerRecommendation
+    ) {
+        const tiedNames =
+            careerRecommendation.tiedCareers.map(function (career) {
+                return careerNames[career];
+            });
+
+        careerSelectionContext.textContent =
+            "O diagnóstico indicou empate entre " +
+            tiedNames.join(" e ") +
+            ". Escolha uma carreira para explorar.";
+    }
+
+    else if (careerSelectionSource === "manual") {
+        careerSelectionContext.textContent =
+            "Carreira escolhida por você. A seleção pode ser alterada a qualquer momento.";
+    }
+
+    else {
+        careerSelectionContext.textContent =
+            "Escolha uma carreira para comparar suas competências.";
+    }
+
+}
+
+
+function applyDiagnosisCareerRecommendation(result) {
+
+    if (!careerSelect) {
+        return;
+    }
+
+    const tiedCareers = result.topAreas.map(function (area) {
+        return area.key;
+    });
+
+    careerRecommendation = {
+        recommendedCareer:
+            tiedCareers.length === 1 ? tiedCareers[0] : null,
+        tiedCareers: tiedCareers
+    };
+
+    localStorage.setItem(
+        "careerMindCareerRecommendation",
+        JSON.stringify(careerRecommendation)
+    );
+
+    if (careerRecommendation.recommendedCareer) {
+        careerSelect.value =
+            careerRecommendation.recommendedCareer;
+        careerSelectionSource = "diagnosis";
+    } else {
+        careerSelectionSource = "tie";
+        careerSelect.selectedIndex = -1;
+    }
+
+    saveCurrentCareerSelection();
+    updateCareerSelectionPresentation();
+
+    renderSkills();
+    renderRoadmap();
+
+    resetChallenge();
+
+}
+
+
+function loadCareerSelection() {
+
+    if (!careerSelect) {
+        return;
+    }
+
+    try {
+        const savedRecommendation = JSON.parse(
+            localStorage.getItem(
+                "careerMindCareerRecommendation"
+            )
+        );
+
+        if (savedRecommendation) {
+            careerRecommendation = savedRecommendation;
+        }
+
+        const savedSelection = JSON.parse(
+            localStorage.getItem(
+                "careerMindCareerSelection"
+            )
+        );
+
+        if (
+            savedSelection &&
+            savedSelection.source === "tie" &&
+            savedRecommendation &&
+            savedRecommendation.tiedCareers &&
+            savedRecommendation.tiedCareers.length > 1
+        ) {
+            careerSelect.selectedIndex = -1;
+            careerSelectionSource = "tie";
+        }
+
+        else if (
+            savedSelection &&
+            careerNames[savedSelection.career]
+        ) {
+            careerSelect.value = savedSelection.career;
+            careerSelectionSource = savedSelection.source;
+        }
+    }
+
+    catch (error) {
+        console.warn(
+            "Não foi possível carregar a seleção de carreira."
+        );
+    }
+
+    updateCareerSelectionPresentation();
+
+}
+
+
 // ==========================================
 // ANALISAR COMPETÊNCIAS
 // ==========================================
@@ -1032,6 +1419,36 @@ function renderSkills() {
 
     const career =
         careerSelect.value;
+
+    if (!careerData[career]) {
+        skillsList.textContent = "";
+
+        if (skillsCompleted) {
+            skillsCompleted.textContent = "—";
+        }
+
+        if (skillsMissing) {
+            skillsMissing.textContent = "—";
+        }
+
+        if (skillsMatch) {
+            skillsMatch.textContent = "—";
+        }
+
+        if (gapList) {
+            gapList.textContent = "";
+
+            const message = document.createElement("div");
+            message.className = "gap-item";
+            message.textContent =
+                "Escolha uma das carreiras empatadas para visualizar competências e lacunas.";
+            gapList.appendChild(message);
+        }
+
+        return;
+    }
+
+    updateCareerSelectionPresentation();
 
 
     const skills =
@@ -1359,7 +1776,14 @@ if (careerSelect) {
 
     careerSelect.addEventListener(
         "change",
-        renderSkills
+        function () {
+            careerSelectionSource = "manual";
+            saveCurrentCareerSelection();
+            updateCareerSelectionPresentation();
+            renderSkills();
+            renderRoadmap();
+            resetChallenge();
+        }
     );
 
 }
@@ -1381,6 +1805,11 @@ const validateSkillBtn =
 const challengeCard =
     document.getElementById(
         "challengeCard"
+    );
+
+const challengeTitle =
+    document.getElementById(
+        "challengeTitle"
     );
 
 const challengeQuestions =
@@ -1442,17 +1871,338 @@ const goRoadmapBtn =
 let currentChallenge = 1;
 
 
-// Respostas corretas
-
-const correctAnswers = {
-
-    challenge1: "c",
-
-    challenge2: "b",
-
-    challenge3: "c"
-
+const questionBanks = {
+    frontend: {
+        competency: "JavaScript",
+        questions: [
+            {
+                text: "Qual palavra-chave declara uma variável que não pode ser reatribuída em JavaScript?",
+                options: [
+                    { value: "a", text: "var" },
+                    { value: "b", text: "let" },
+                    { value: "c", text: "const" },
+                    { value: "d", text: "function" }
+                ],
+                correctAnswer: "c"
+            },
+            {
+                text: "Qual método adiciona um item ao final de um array?",
+                options: [
+                    { value: "a", text: "pop()" },
+                    { value: "b", text: "push()" },
+                    { value: "c", text: "shift()" },
+                    { value: "d", text: "slice()" }
+                ],
+                correctAnswer: "b"
+            },
+            {
+                text: "Qual estrutura repete um bloco enquanto uma condição for verdadeira?",
+                options: [
+                    { value: "a", text: "if" },
+                    { value: "b", text: "switch" },
+                    { value: "c", text: "while" },
+                    { value: "d", text: "try" }
+                ],
+                correctAnswer: "c"
+            }
+        ]
+    },
+    backend: {
+        competency: "Java",
+        questions: [
+            {
+                text: "Em Java, qual método é o ponto de entrada de uma aplicação executável?",
+                options: [
+                    { value: "a", text: "start()" },
+                    { value: "b", text: "main()" },
+                    { value: "c", text: "run()" },
+                    { value: "d", text: "init()" }
+                ],
+                correctAnswer: "b"
+            },
+            {
+                text: "Qual palavra-chave indica que uma classe herda de outra classe em Java?",
+                options: [
+                    { value: "a", text: "extends" },
+                    { value: "b", text: "implements" },
+                    { value: "c", text: "inherits" },
+                    { value: "d", text: "instanceof" }
+                ],
+                correctAnswer: "a"
+            },
+            {
+                text: "Qual coleção Java armazena pares de chave e valor?",
+                options: [
+                    { value: "a", text: "List" },
+                    { value: "b", text: "Set" },
+                    { value: "c", text: "Queue" },
+                    { value: "d", text: "Map" }
+                ],
+                correctAnswer: "d"
+            }
+        ]
+    },
+    data: {
+        competency: "SQL",
+        questions: [
+            {
+                text: "Qual comando SQL consulta dados de uma tabela?",
+                options: [
+                    { value: "a", text: "SELECT" },
+                    { value: "b", text: "UPDATE" },
+                    { value: "c", text: "DELETE" },
+                    { value: "d", text: "CREATE" }
+                ],
+                correctAnswer: "a"
+            },
+            {
+                text: "Qual cláusula SQL filtra as linhas de uma consulta?",
+                options: [
+                    { value: "a", text: "ORDER BY" },
+                    { value: "b", text: "GROUP BY" },
+                    { value: "c", text: "WHERE" },
+                    { value: "d", text: "FROM" }
+                ],
+                correctAnswer: "c"
+            },
+            {
+                text: "Qual função SQL conta a quantidade de linhas de um resultado?",
+                options: [
+                    { value: "a", text: "SUM()" },
+                    { value: "b", text: "COUNT()" },
+                    { value: "c", text: "AVG()" },
+                    { value: "d", text: "MAX()" }
+                ],
+                correctAnswer: "b"
+            }
+        ]
+    },
+    product: {
+        competency: "Métricas de produto",
+        questions: [
+            {
+                text: "Qual métrica ajuda a acompanhar quantos usuários deixam de usar um produto em um período?",
+                options: [
+                    { value: "a", text: "Churn" },
+                    { value: "b", text: "Receita bruta" },
+                    { value: "c", text: "Tamanho do backlog" },
+                    { value: "d", text: "Quantidade de releases" }
+                ],
+                correctAnswer: "a"
+            },
+            {
+                text: "Para avaliar uma nova funcionalidade, qual prática compara duas versões com grupos de usuários?",
+                options: [
+                    { value: "a", text: "Benchmark" },
+                    { value: "b", text: "Teste A/B" },
+                    { value: "c", text: "Brainstorming" },
+                    { value: "d", text: "Daily meeting" }
+                ],
+                correctAnswer: "b"
+            },
+            {
+                text: "Qual métrica indica a proporção de usuários que concluiu uma ação desejada?",
+                options: [
+                    { value: "a", text: "Taxa de conversão" },
+                    { value: "b", text: "Custo fixo" },
+                    { value: "c", text: "Velocidade da equipe" },
+                    { value: "d", text: "Quantidade de histórias" }
+                ],
+                correctAnswer: "a"
+            }
+        ]
+    }
 };
+
+
+const validationStorageKey =
+    "careerMindValidationResults";
+
+const validationLevelValues = {
+    "Básico": 1,
+    "Intermediário": 2,
+    "Avançado": 3
+};
+
+
+function getValidationLevel(percentage) {
+    if (percentage >= 80) {
+        return "Avançado";
+    }
+
+    if (percentage >= 50) {
+        return "Intermediário";
+    }
+
+    return "Básico";
+}
+
+
+function readValidationResults() {
+    try {
+        const savedResults = JSON.parse(
+            localStorage.getItem(validationStorageKey)
+        );
+
+        return savedResults && typeof savedResults === "object"
+            ? savedResults
+            : {};
+    }
+
+    catch (error) {
+        console.warn(
+            "Não foi possível carregar as validações de competências."
+        );
+        return {};
+    }
+}
+
+
+function saveValidationResult(
+    career,
+    competency,
+    percentage,
+    level
+) {
+    const savedResults = readValidationResults();
+
+    if (!savedResults[career]) {
+        savedResults[career] = {};
+    }
+
+    savedResults[career][competency] = {
+        score: percentage,
+        level: level,
+        levelValue: validationLevelValues[level]
+    };
+
+    localStorage.setItem(
+        validationStorageKey,
+        JSON.stringify(savedResults)
+    );
+}
+
+
+function applyStoredValidationResults() {
+    const savedResults = readValidationResults();
+
+    Object.keys(savedResults).forEach(function (career) {
+        if (!careerData[career]) {
+            return;
+        }
+
+        const careerResults = savedResults[career];
+
+        if (!careerResults || typeof careerResults !== "object") {
+            return;
+        }
+
+        Object.keys(careerResults).forEach(function (competency) {
+            const result = careerResults[competency];
+            const skill = careerData[career].find(function (item) {
+                return item.nome === competency;
+            });
+            const levelValue = result
+                ? validationLevelValues[result.level]
+                : null;
+
+            if (skill && levelValue) {
+                skill.nivelEstudante = levelValue;
+            }
+        });
+    });
+}
+
+
+function getCurrentQuestionBank() {
+    return careerSelect
+        ? questionBanks[careerSelect.value]
+        : null;
+}
+
+
+function renderChallengeBank() {
+    const bank = getCurrentQuestionBank();
+
+    if (!bank) {
+        if (challengeTitle) {
+            challengeTitle.textContent = "Escolha uma carreira";
+        }
+
+        challengeQuestions.forEach(function (container) {
+            const heading = container.querySelector("h4");
+            const options = container.querySelector(".challenge-options");
+
+            if (heading) {
+                heading.textContent =
+                    "Selecione uma carreira para carregar o desafio correspondente.";
+            }
+
+            if (options) {
+                options.textContent = "";
+            }
+        });
+
+        return;
+    }
+
+    if (challengeTitle) {
+        challengeTitle.textContent = bank.competency;
+    }
+
+    challengeQuestions.forEach(function (container, index) {
+        const question = bank.questions[index];
+        const heading = container.querySelector("h4");
+        const options = container.querySelector(".challenge-options");
+
+        if (!question || !heading || !options) {
+            return;
+        }
+
+        heading.textContent = question.text;
+        options.textContent = "";
+
+        question.options.forEach(function (option) {
+            const label = document.createElement("label");
+            const input = document.createElement("input");
+
+            input.type = "radio";
+            input.name = "challenge" + (index + 1);
+            input.value = option.value;
+
+            label.appendChild(input);
+            label.appendChild(
+                document.createTextNode(" " + option.text)
+            );
+            options.appendChild(label);
+        });
+    });
+}
+
+
+function resetChallenge() {
+    currentChallenge = 1;
+    renderChallengeBank();
+
+    if (validationResult) {
+        validationResult.classList.add("hidden");
+    }
+
+    if (validationScore) {
+        validationScore.textContent = "0%";
+    }
+
+    if (validatedLevel) {
+        validatedLevel.textContent = "Não validado";
+    }
+
+    if (validationResultText) {
+        validationResultText.textContent =
+            "Conclua o desafio para visualizar o resultado desta competência específica.";
+    }
+
+    showChallengeQuestion(currentChallenge);
+}
 
 
 // ==========================================
@@ -1492,6 +2242,11 @@ function showChallengeQuestion(
     questionNumber
 ) {
 
+    const bank = getCurrentQuestionBank();
+    const questionCount = bank
+        ? bank.questions.length
+        : challengeQuestions.length;
+
     challengeQuestions.forEach(
         function (question) {
 
@@ -1527,7 +2282,8 @@ function showChallengeQuestion(
         challengeCounter.textContent =
             "Questão " +
             questionNumber +
-            " de 3";
+            " de " +
+            questionCount;
 
     }
 
@@ -1535,7 +2291,7 @@ function showChallengeQuestion(
     if (challengeProgress) {
 
         const percentage =
-            (questionNumber / 3) * 100;
+            (questionNumber / questionCount) * 100;
 
         challengeProgress.style.width =
             percentage + "%";
@@ -1562,7 +2318,7 @@ function showChallengeQuestion(
 
     if (challengeNext) {
 
-        if (questionNumber === 3) {
+            if (questionNumber === questionCount) {
 
             challengeNext.classList.add(
                 "hidden"
@@ -1581,7 +2337,7 @@ function showChallengeQuestion(
 
     if (finishChallenge) {
 
-        if (questionNumber === 3) {
+            if (questionNumber === questionCount) {
 
             finishChallenge.classList.remove(
                 "hidden"
@@ -1627,6 +2383,13 @@ if (challengeNext) {
         "click",
         function () {
 
+            const bank = getCurrentQuestionBank();
+
+            if (!bank) {
+                alert("Escolha uma carreira antes de iniciar o desafio.");
+                return;
+            }
+
             const answer =
                 getChallengeAnswer(
                     currentChallenge
@@ -1645,7 +2408,7 @@ if (challengeNext) {
 
 
             if (
-                currentChallenge < 3
+                currentChallenge < bank.questions.length
             ) {
 
                 currentChallenge++;
@@ -1700,6 +2463,13 @@ if (finishChallenge) {
         "click",
         function () {
 
+            const bank = getCurrentQuestionBank();
+
+            if (!bank) {
+                alert("Escolha uma carreira antes de finalizar o desafio.");
+                return;
+            }
+
             const lastAnswer =
                 getChallengeAnswer(
                     currentChallenge
@@ -1724,7 +2494,7 @@ if (finishChallenge) {
 
             for (
                 let i = 1;
-                i <= 3;
+                i <= bank.questions.length;
                 i++
             ) {
 
@@ -1735,9 +2505,7 @@ if (finishChallenge) {
                 if (
                     answer &&
                     answer.value ===
-                    correctAnswers[
-                        "challenge" + i
-                    ]
+                    bank.questions[i - 1].correctAnswer
                 ) {
 
                     score++;
@@ -1749,29 +2517,12 @@ if (finishChallenge) {
 
             const percentage =
                 Math.round(
-                    (score / 3) * 100
+                    (score / bank.questions.length) * 100
                 );
 
 
-            let level =
-                "Não validado";
-
-
-            if (
-                percentage >= 80
-            ) {
-
-                level = "Intermediário";
-
-            }
-
-            else if (
-                percentage >= 50
-            ) {
-
-                level = "Básico";
-
-            }
+            const level =
+                getValidationLevel(percentage);
 
 
             // Atualiza resultado
@@ -1794,24 +2545,30 @@ if (finishChallenge) {
 
             if (validationResultText) {
 
-                if (percentage >= 80) {
+                if (level === "Avançado") {
 
                     validationResultText.textContent =
-                        "Seu desempenho demonstra que você possui uma boa base em JavaScript. Essa competência foi validada pelo CareerMind.";
+                        "Seu desempenho demonstra nível avançado em " +
+                        bank.competency +
+                        ". Este desafio valida somente essa competência específica, não toda a carreira.";
 
                 }
 
-                else if (percentage >= 50) {
+                else if (level === "Intermediário") {
 
                     validationResultText.textContent =
-                        "Você demonstrou conhecimentos básicos em JavaScript. Continue praticando para alcançar o próximo nível.";
+                        "Você demonstrou nível intermediário em " +
+                        bank.competency +
+                        ". Continue praticando; este desafio avalia somente essa competência específica.";
 
                 }
 
                 else {
 
                     validationResultText.textContent =
-                        "Seu resultado indica que essa competência ainda precisa ser desenvolvida.";
+                        "Você demonstrou nível básico em " +
+                        bank.competency +
+                        ". Continue desenvolvendo essa competência; o desafio não valida a carreira inteira.";
 
                 }
 
@@ -1832,17 +2589,19 @@ if (finishChallenge) {
             }
 
 
-            // Guarda resultado
+            const currentCareer =
+                careerSelect.value;
 
-            localStorage.setItem(
-                "careerMindJavaScriptLevel",
+            saveValidationResult(
+                currentCareer,
+                bank.competency,
+                percentage,
                 level
             );
 
-            localStorage.setItem(
-                "careerMindJavaScriptScore",
-                percentage
-            );
+            applyStoredValidationResults();
+            renderSkills();
+            renderRoadmap();
 
         }
     );
@@ -1872,6 +2631,11 @@ const roadmapDeadline =
 const roadmapHours =
     document.getElementById(
         "roadmapHours"
+    );
+
+const roadmapPlanningNote =
+    document.getElementById(
+        "roadmapPlanningNote"
     );
 
 
@@ -2105,9 +2869,251 @@ const roadmaps = {
             ]
         }
 
+    ],
+
+
+    product: [
+
+        {
+            mes: "MÊS 1",
+            titulo: "Pesquisa com usuários",
+            descricao:
+                "Compreender necessidades, problemas e comportamentos dos usuários.",
+            tags: [
+                "Entrevistas",
+                "Pesquisa",
+                "Usuários"
+            ]
+        },
+
+        {
+            mes: "MÊS 2",
+            titulo: "Descoberta de produto",
+            descricao:
+                "Transformar problemas identificados em oportunidades de produto.",
+            tags: [
+                "Discovery",
+                "Hipóteses",
+                "Jornada"
+            ]
+        },
+
+        {
+            mes: "MÊS 3",
+            titulo: "Prototipação",
+            descricao:
+                "Criar e validar protótipos antes do desenvolvimento.",
+            tags: [
+                "Protótipos",
+                "Testes",
+                "Validação"
+            ]
+        },
+
+        {
+            mes: "MÊS 4",
+            titulo: "Métricas de produto",
+            descricao:
+                "Acompanhar indicadores para avaliar resultados e orientar decisões.",
+            tags: [
+                "Métricas",
+                "Indicadores",
+                "Dados"
+            ]
+        },
+
+        {
+            mes: "MÊS 5",
+            titulo: "Priorização e planejamento",
+            descricao:
+                "Organizar prioridades e construir um plano de evolução do produto.",
+            tags: [
+                "Priorização",
+                "Roadmap",
+                "Planejamento"
+            ]
+        },
+
+        {
+            mes: "MÊS 6",
+            titulo: "Projeto de produto",
+            descricao:
+                "Documentar uma proposta de produto para o portfólio.",
+            tags: [
+                "Projeto",
+                "Produto",
+                "Portfólio"
+            ]
+        }
+
     ]
 
 };
+
+
+const roadmapSkillIndexes = {
+    frontend: {
+        JavaScript: 0,
+        React: 2
+    },
+    backend: {
+        Java: 0,
+        SQL: 1,
+        APIs: 2,
+        Docker: 3
+    },
+    data: {
+        Excel: 0,
+        SQL: 1,
+        Python: 2,
+        "Power BI": 3
+    },
+    product: {
+        "Pesquisa com usuários": 0,
+        "Gestão de produto": 1,
+        Prototipação: 2,
+        "Métricas de produto": 3,
+        Priorização: 4
+    }
+};
+
+
+function getRoadmapPlanning(profile) {
+
+    const deadlineMonths = {
+        "3 meses": 3,
+        "6 meses": 6,
+        "1 ano": 12,
+        "2 anos": 24,
+        "Mais de 2 anos": 30
+    };
+
+    const weeklyHours = {
+        "Até 3 horas": 3,
+        "4 a 6 horas": 5,
+        "7 a 10 horas": 8,
+        "11 a 15 horas": 13,
+        "Mais de 15 horas": 16
+    };
+
+    const hasDeadline =
+        profile && deadlineMonths[profile.prazo];
+    const hasHours =
+        profile && weeklyHours[profile.horas];
+
+    return {
+        deadline: hasDeadline ? profile.prazo : "6 meses",
+        months: hasDeadline ? deadlineMonths[profile.prazo] : 6,
+        hours: hasHours ? profile.horas : "7 a 10 horas",
+        weeklyHours: hasHours ? weeklyHours[profile.horas] : 8,
+        isDemonstrative: !hasDeadline || !hasHours
+    };
+
+}
+
+
+function buildAdaptiveRoadmap(career, planning) {
+
+    const skills = careerData[career] || [];
+    const skillIndexes = roadmapSkillIndexes[career] || {};
+
+    const gaps = skills
+        .map(function (skill) {
+            return {
+                skill: skill,
+                difference:
+                    skill.nivelMercado - skill.nivelEstudante
+            };
+        })
+        .filter(function (item) {
+            return item.difference > 0;
+        })
+        .sort(function (firstItem, secondItem) {
+            if (secondItem.difference !== firstItem.difference) {
+                return secondItem.difference - firstItem.difference;
+            }
+
+            return Number(
+                secondItem.skill.demanda === "Alta"
+            ) - Number(
+                firstItem.skill.demanda === "Alta"
+            );
+        });
+
+    const steps = gaps.map(function (item) {
+        const skill = item.skill;
+        const templateIndex = skillIndexes[skill.nome];
+        const template = Number.isInteger(templateIndex)
+            ? roadmaps[career][templateIndex]
+            : null;
+
+        return {
+            titulo: template
+                ? template.titulo
+                : "Desenvolver " + skill.nome,
+            descricao:
+                "Prioridade orientativa: evoluir " +
+                skill.nome + " de " +
+                getLevelText(skill.nivelEstudante) + " para " +
+                getLevelText(skill.nivelMercado) + "." +
+                (template ? " " + template.descricao : ""),
+            tags: [
+                skill.nome,
+                "Lacuna " + item.difference,
+                "Demanda " + skill.demanda.toLowerCase()
+            ]
+        };
+    });
+
+    steps.push({
+        titulo: "Projeto prático de " + careerNames[career],
+        descricao:
+            "Aplicar as competências priorizadas em um projeto demonstrativo.",
+        tags: [
+            "Projeto prático",
+            careerNames[career],
+            "Aplicação"
+        ]
+    });
+
+    steps.push({
+        titulo: "Portfólio e processos seletivos",
+        descricao:
+            "Documentar o projeto, atualizar o portfólio e preparar candidaturas e entrevistas.",
+        tags: [
+            "Portfólio",
+            "Currículo",
+            "Entrevistas"
+        ]
+    });
+
+    const totalWeeks = planning.months * 4;
+    const weeksPerStep = Math.max(
+        1,
+        Math.floor(totalWeeks / steps.length)
+    );
+    const estimatedHoursPerStep =
+        planning.weeklyHours * weeksPerStep;
+
+    return steps.map(function (step, index) {
+        return {
+            mes:
+                "ETAPA " + (index + 1) +
+                " • " + weeksPerStep +
+                (weeksPerStep === 1 ? " SEMANA" : " SEMANAS"),
+            titulo: step.titulo,
+            descricao:
+                step.descricao +
+                " Ritmo sugerido considerando " +
+                planning.hours.toLowerCase() +
+                " por semana, com cerca de " +
+                estimatedHoursPerStep +
+                " horas indicativas nesta etapa.",
+            tags: step.tags
+        };
+    });
+
+}
 
 
 // ==========================================
@@ -2121,74 +3127,63 @@ function renderRoadmap() {
     }
 
 
-    // Por enquanto usa Front-end
-    // como demonstração
+    const career =
+        careerSelect
+            ? careerSelect.value
+            : "frontend";
 
-    let career =
-        "frontend";
+    if (!roadmaps[career]) {
+        roadmapList.textContent = "";
 
+        const message = document.createElement("div");
+        message.className = "roadmap-item";
+        message.textContent =
+            "Escolha uma das carreiras empatadas para gerar seu roadmap.";
+        roadmapList.appendChild(message);
 
-    const profile =
-        localStorage.getItem(
-            "careerMindProfile"
-        );
-
-
-    // Tenta identificar a carreira
-    // pelo objetivo do estudante
-
-    if (profile) {
-
-        try {
-
-            const data =
-                JSON.parse(profile);
-
-
-            const objective =
-                (
-                    data.objetivo || ""
-                ).toLowerCase();
-
-
-            if (
-                objective.includes(
-                    "backend"
-                ) ||
-                objective.includes(
-                    "back-end"
-                )
-            ) {
-
-                career = "backend";
-
-            }
-
-            else if (
-                objective.includes(
-                    "dados"
-                )
-            ) {
-
-                career = "data";
-
-            }
-
+        if (roadmapObjective) {
+            roadmapObjective.textContent = "Escolha uma carreira";
         }
 
-        catch (error) {
-
-            console.log(
-                "Perfil não encontrado."
-            );
-
+        if (roadmapPlanningNote) {
+            roadmapPlanningNote.textContent =
+                "O roadmap será calculado depois da sua escolha.";
         }
 
+        if (roadmapDeadline) {
+            roadmapDeadline.textContent = "—";
+        }
+
+        if (roadmapHours) {
+            roadmapHours.textContent = "—";
+        }
+
+        return;
     }
 
 
+    let profileData = null;
+
+    try {
+        profileData = JSON.parse(
+            localStorage.getItem(
+                "careerMindProfile"
+            )
+        );
+    }
+
+    catch (error) {
+        console.warn(
+            "Não foi possível carregar o perfil."
+        );
+    }
+
+    const planning =
+        getRoadmapPlanning(profileData);
+
+
     const roadmap =
-        roadmaps[career];
+        buildAdaptiveRoadmap(career, planning);
 
 
     roadmapList.innerHTML = "";
@@ -2260,58 +3255,35 @@ function renderRoadmap() {
     );
 
 
-    // Informações do perfil
+    if (roadmapDeadline) {
+        roadmapDeadline.textContent = planning.deadline;
+    }
 
-    if (profile) {
+    if (roadmapHours) {
+        roadmapHours.textContent = planning.hours;
+    }
 
-        try {
+    if (roadmapObjective) {
+        roadmapObjective.textContent =
+            profileData && profileData.objetivo
+                ? profileData.objetivo
+                : careerNames[career];
+    }
 
-            const data =
-                JSON.parse(profile);
-
-
-            if (
-                roadmapDeadline &&
-                data.prazo
-            ) {
-
-                roadmapDeadline.textContent =
-                    data.prazo;
-
+    if (roadmapPlanningNote) {
+        const completedSkills = careerData[career].filter(
+            function (skill) {
+                return skill.nivelEstudante >= skill.nivelMercado;
             }
+        ).length;
 
-
-            if (
-                roadmapHours &&
-                data.horas
-            ) {
-
-                roadmapHours.textContent =
-                    data.horas;
-
-            }
-
-
-            if (
-                roadmapObjective &&
-                data.objetivo
-            ) {
-
-                roadmapObjective.textContent =
-                    data.objetivo;
-
-            }
-
-        }
-
-        catch (error) {
-
-            console.log(
-                "Não foi possível carregar o perfil."
-            );
-
-        }
-
+        roadmapPlanningNote.textContent =
+            planning.isDemonstrative
+                ? "Planejamento demonstrativo: prazo ou horas não foram informados. " +
+                    "Os valores exibidos são orientativos."
+                : "Plano orientativo priorizado pelas maiores lacunas. " +
+                    completedSkills +
+                    " competência(s) atendida(s) ficaram fora do caminho obrigatório.";
     }
 
 }
@@ -2348,12 +3320,16 @@ if (goRoadmapBtn) {
 
 // Renderiza inicialmente
 
+loadCareerSelection();
+
+applyStoredValidationResults();
+
 renderRoadmap();
 
 
-// Mostra a primeira questão
+// Carrega o desafio da carreira atual
 
-showChallengeQuestion(1);
+resetChallenge();
 
 // ==========================================
 // CARREGAR ANÁLISE INICIAL
