@@ -1908,37 +1908,40 @@ const questionBanks = {
         ]
     },
     backend: {
-        competency: "Java",
+        competency: "Python para Back-end",
         questions: [
             {
-                text: "Em Java, qual método é o ponto de entrada de uma aplicação executável?",
+                text: "Em uma API Python, qual estrutura representa melhor um objeto JSON recebido com nome e e-mail?",
                 options: [
-                    { value: "a", text: "start()" },
-                    { value: "b", text: "main()" },
-                    { value: "c", text: "run()" },
-                    { value: "d", text: "init()" }
+                    { value: "a", text: "Uma string" },
+                    { value: "b", text: "Um dicionário" },
+                    { value: "c", text: "Uma tupla" },
+                    { value: "d", text: "Um conjunto" }
                 ],
-                correctAnswer: "b"
+                correctAnswer: "b",
+                explanation: "Objetos JSON são normalmente manipulados em Python como dicionários, com pares de chave e valor."
             },
             {
-                text: "Qual palavra-chave indica que uma classe herda de outra classe em Java?",
+                text: "Qual método HTTP é normalmente usado para buscar dados de um recurso em uma API?",
                 options: [
-                    { value: "a", text: "extends" },
-                    { value: "b", text: "implements" },
-                    { value: "c", text: "inherits" },
-                    { value: "d", text: "instanceof" }
+                    { value: "a", text: "GET" },
+                    { value: "b", text: "POST" },
+                    { value: "c", text: "DELETE" },
+                    { value: "d", text: "PATCH" }
                 ],
-                correctAnswer: "a"
+                correctAnswer: "a",
+                explanation: "O método GET é usado para solicitar a representação de um recurso sem alterá-lo no servidor."
             },
             {
-                text: "Qual coleção Java armazena pares de chave e valor?",
+                text: "Dado usuario = {\"ativo\": True}, qual expressão Python verifica se o usuário está ativo?",
                 options: [
-                    { value: "a", text: "List" },
-                    { value: "b", text: "Set" },
-                    { value: "c", text: "Queue" },
-                    { value: "d", text: "Map" }
+                    { value: "a", text: "usuario.ativo" },
+                    { value: "b", text: "usuario[\"ativo\"]" },
+                    { value: "c", text: "usuario(\"ativo\")" },
+                    { value: "d", text: "usuario->ativo" }
                 ],
-                correctAnswer: "d"
+                correctAnswer: "b",
+                explanation: "Em Python, um valor de dicionário pode ser acessado pela chave entre colchetes."
             }
         ]
     },
